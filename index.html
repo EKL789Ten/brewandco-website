@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brew &amp; Co. — Specialty Coffee · Hong Kong</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Oswald (headings) + Lora (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 (social + UI icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <script>
+    /* ── Tailwind config ─────────────────────────────────────────── */
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Oswald', 'sans-serif'],
+            body:    ['Lora', 'serif'],
+          },
+          colors: {
+            espresso:  '#362C26',
+            saddle:    '#8B4513',
+            sienna:    '#A0522D',
+            tan:       '#D2B48C',
+            cream:     '#F5F0E8',
+            parchment: '#FAF6F0',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base typography ─────────────────────────────────────────── */
+    body { font-family: 'Lora', serif; background-color: #FAF6F0; color: #362C26; }
+    h1,h2,h3,h4,h5,h6,.font-heading { font-family: 'Oswald', sans-serif; }
+
+    /* ── Navbar transition ───────────────────────────────────────── */
+    #navbar {
+      transition: background-color 0.35s ease, box-shadow 0.35s ease;
+    }
+    #navbar.scrolled {
+      background-color: #ffffff;
+      box-shadow: 0 2px 16px rgba(54,44,38,0.12);
+    }
+    #navbar.scrolled .nav-link  { color: #362C26; }
+    #navbar.scrolled .nav-logo  { color: #8B4513; }
+    #navbar.scrolled #hamburger { color: #362C26; }
+
+    /* ── Hero overlay ────────────────────────────────────────────── */
+    .hero-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(54,44,38,0.55) 0%,
+        rgba(54,44,38,0.72) 60%,
+        rgba(54,44,38,0.85) 100%
+      );
+    }
+
+    /* ── Menu card hover ─────────────────────────────────────────── */
+    .menu-card {
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+    .menu-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(54,44,38,0.18);
+    }
+
+    /* ── Instagram tile hover ────────────────────────────────────── */
+    .insta-tile { overflow: hidden; }
+    .insta-tile img {
+      transition: transform 0.4s ease;
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .insta-tile:hover img { transform: scale(1.07); }
+    .insta-tile .insta-overlay {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .insta-tile:hover .insta-overlay { opacity: 1; }
+
+    /* ── Testimonial card hover ──────────────────────────────────── */
+    .testi-card {
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+    .testi-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(54,44,38,0.13);
+    }
+
+    /* ── CTA button pulse ────────────────────────────────────────── */
+    .btn-cta {
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+    }
+    .btn-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(139,69,19,0.38);
+    }
+
+    /* ── Section fade-in on scroll ───────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Hours table alternating rows ───────────────────────────── */
+    .hours-row:nth-child(even) { background-color: rgba(210,180,140,0.15); }
+
+    /* ── Mobile menu slide ───────────────────────────────────────── */
+    #mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    #mobile-menu.open { max-height: 400px; }
+  </style>
+</head>
+
+<body class="antialiased">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════════════════════════════ -->
+<header id="navbar" class="fixed top-0 inset-x-0 z-50">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+    <div class="flex items-center justify-between h-16 md:h-20">
+
+      <!-- Logo -->
+      <a href="#home" class="nav-logo font-heading text-2xl md:text-3xl font-bold tracking-wide text-white flex items-center gap-2">
+        <span class="text-tan">✦</span> Brew &amp; Co.
+      </a>
+
+      <!-- Desktop nav links -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#about"        class="nav-link text-white/90 hover:text-tan font-heading text-sm tracking-widest uppercase transition">About</a>
+        <a href="#menu"         class="nav-link text-white/90 hover:text-tan font-heading text-sm tracking-widest uppercase transition">Menu</a>
+        <a href="#gallery"      class="nav-link text-white/90 hover:text-tan font-heading text-sm tracking-widest uppercase transition">Gallery</a>
+        <a href="#testimonials" class="nav-link text-white/90 hover:text-tan font-heading text-sm tracking-widest uppercase transition">Reviews</a>
+        <a href="#location"     class="nav-link text-white/90 hover:text-tan font-heading text-sm tracking-widest uppercase transition">Location</a>
+        <a href="#menu" class="btn-cta ml-2 bg-saddle text-white font-heading text-sm tracking-widest uppercase px-5 py-2 rounded-full">
+          Order Now
+        </a>
+      </nav>
+
+      <!-- Hamburger -->
+      <button id="hamburger" class="md:hidden text-white text-2xl focus:outline-none" aria-label="Toggle menu">
+        <i id="ham-icon" class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile dropdown -->
+  <div id="mobile-menu" class="md:hidden bg-espresso/95 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto px-5 pb-5 flex flex-col gap-1 pt-2">
+      <a href="#about"        class="mobile-link font-heading text-white/90 hover:text-tan tracking-widest uppercase text-sm py-3 border-b border-white/10 transition">About</a>
+      <a href="#menu"         class="mobile-link font-heading text-white/90 hover:text-tan tracking-widest uppercase text-sm py-3 border-b border-white/10 transition">Menu</a>
+      <a href="#gallery"      class="mobile-link font-heading text-white/90 hover:text-tan tracking-widest uppercase text-sm py-3 border-b border-white/10 transition">Gallery</a>
+      <a href="#testimonials" class="mobile-link font-heading text-white/90 hover:text-tan tracking-widest uppercase text-sm py-3 border-b border-white/10 transition">Reviews</a>
+      <a href="#location"     class="mobile-link font-heading text-white/90 hover:text-tan tracking-widest uppercase text-sm py-3 transition">Location</a>
+    </div>
+  </div>
+</header>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════════ -->
+<section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+
+  <!-- Background image -->
+  <img
+    src="https://images.unsplash.com/photo-1495474472645-4c71bcdd2014?w=1600&q=80&fit=crop"
+    alt="Brew & Co. café interior"
+    class="absolute inset-0 w-full h-full object-cover object-center"
+  />
+
+  <!-- Dark gradient overlay -->
+  <div class="hero-overlay absolute inset-0"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+    <p class="font-heading text-tan tracking-[0.35em] uppercase text-sm md:text-base mb-5 reveal">
+      Specialty Coffee · Central, Hong Kong
+    </p>
+    <h1 class="font-heading text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6 reveal">
+      Your Daily<br/>Ritual,<br class="sm:hidden"/> Elevated.
+    </h1>
+    <p class="text-white/80 text-lg md:text-xl max-w-xl mx-auto mb-10 reveal">
+      Single-origin beans. Expert baristas. A sanctuary for coffee lovers in the heart of Hong Kong.
+    </p>
+    <a href="#menu" class="btn-cta inline-block bg-saddle hover:bg-sienna text-white font-heading tracking-widest uppercase text-base px-10 py-4 rounded-full reveal">
+      View Our Menu
+    </a>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 text-xs tracking-widest uppercase">
+    <span>Scroll</span>
+    <i class="fas fa-chevron-down animate-bounce"></i>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     ABOUT
+═══════════════════════════════════════════════════════════════ -->
+<section id="about" class="py-24 md:py-32 bg-parchment">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <!-- Left: image -->
+      <div class="relative reveal">
+        <img
+          src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80&fit=crop"
+          alt="Brew & Co. café interior"
+          class="w-full h-[480px] object-cover rounded-2xl shadow-2xl"
+        />
+        <!-- Decorative frame -->
+        <div class="absolute -bottom-5 -right-5 w-full h-full border-2 border-tan rounded-2xl -z-10"></div>
+      </div>
+
+      <!-- Right: story -->
+      <div class="reveal">
+        <!-- Founded badge -->
+        <div class="inline-flex items-center gap-2 bg-saddle text-white font-heading text-xs tracking-[0.25em] uppercase px-4 py-2 rounded-full mb-6">
+          <i class="fas fa-coffee"></i> Est. 2019
+        </div>
+
+        <h2 class="font-heading text-espresso text-4xl md:text-5xl font-bold leading-tight mb-6">
+          More Than a Cup.<br/>It's a Ritual.
+        </h2>
+
+        <p class="text-espresso/80 text-lg leading-relaxed mb-5">
+          Founded in 2019 by two Hong Kong coffee obsessives, Brew &amp; Co. was born from a simple belief: that every cup should be an experience worth savouring. We source exclusively from sustainable, single-origin farms across Ethiopia, Colombia, and Taiwan, working directly with growers who share our uncompromising standards.
+        </p>
+        <p class="text-espresso/80 text-lg leading-relaxed mb-5">
+          Our baristas are trained to treat each brew as a craft — from the precise grind to the final pour — ensuring that whether you order an espresso or a cold brew, it arrives as a small, perfect moment in your day.
+        </p>
+        <p class="text-espresso/80 text-lg leading-relaxed">
+          Nestled on Hollywood Road in Central, our café is a warm refuge from the city's pace — a place to slow down, connect, and let great coffee do the talking.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-8">
+          <div>
+            <p class="font-heading text-4xl font-bold text-saddle">12+</p>
+            <p class="text-sm text-espresso/60 tracking-wide uppercase">Origins Sourced</p>
+          </div>
+          <div>
+            <p class="font-heading text-4xl font-bold text-saddle">5K+</p>
+            <p class="text-sm text-espresso/60 tracking-wide uppercase">Happy Regulars</p>
+          </div>
+          <div>
+            <p class="font-heading text-4xl font-bold text-saddle">6</p>
+            <p class="text-sm text-espresso/60 tracking-wide uppercase">Years Brewing</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MENU HIGHLIGHTS
+═══════════════════════════════════════════════════════════════ -->
+<section id="menu" class="py-24 md:py-32 bg-cream">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+
+    <!-- Heading -->
+    <div class="text-center mb-16 reveal">
+      <p class="font-heading text-saddle tracking-[0.3em] uppercase text-sm mb-3">What We Brew</p>
+      <h2 class="font-heading text-espresso text-4xl md:text-5xl font-bold">Signature Menu</h2>
+      <div class="mt-4 mx-auto w-16 h-0.5 bg-tan"></div>
+    </div>
+
+    <!-- 6-card grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Card 1 — Espresso -->
+      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
+        <div class="h-52 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=600&q=80&fit=crop"
+               alt="Espresso" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-heading text-espresso text-2xl font-semibold">Espresso</h3>
+            <span class="font-heading text-saddle text-xl font-bold">HK$28</span>
+          </div>
+          <p class="text-espresso/70 text-sm leading-relaxed">
+            Pure, bold, and unapologetically intense — a double shot of our house-blend, pulled to perfection.
+          </p>
+          <div class="mt-4 flex gap-2">
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Single Origin</span>
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Hot</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 — Flat White -->
+      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
+        <div class="h-52 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1577968897966-3d4325b36b61?w=600&q=80&fit=crop"
+               alt="Flat White" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-heading text-espresso text-2xl font-semibold">Flat White</h3>
+            <span class="font-heading text-saddle text-xl font-bold">HK$42</span>
+          </div>
+          <p class="text-espresso/70 text-sm leading-relaxed">
+            Velvety microfoam meets a ristretto double shot. Silky, rich, and beautifully balanced.
+          </p>
+          <div class="mt-4 flex gap-2">
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Bestseller</span>
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Hot</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 — Cappuccino -->
+      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
+        <div class="h-52 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80&fit=crop"
+               alt="Cappuccino" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-heading text-espresso text-2xl font-semibold">Cappuccino</h3>
+            <span class="font-heading text-saddle text-xl font-bold">HK$45</span>
+          </div>
+          <p class="text-espresso/70 text-sm leading-relaxed">
+            Classic Italian elegance — equal thirds of espresso, steamed milk, and a generous cloud of foam.
+          </p>
+          <div class="mt-4 flex gap-2">
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Classic</span>
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Hot</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 — Latte -->
+      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
+        <div class="h-52 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?w=600&q=80&fit=crop"
+               alt="Latte" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-heading text-espresso text-2xl font-semibold">Latte</h3>
+            <span class="font-heading text-saddle text-xl font-bold">HK$48</span>
+          </div>
+          <p class="text-espresso/70 text-sm leading-relaxed">
+            Smooth, comforting, and adorned with hand-poured latte art. A daily ritual made beautiful.
+          </p>
+          <div class="mt-4 flex gap-2">
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Latte Art</span>
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Hot / Iced</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5 — Cold Brew -->
+      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
+        <div class="h-52 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80&fit=crop"
+               alt="Cold Brew" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-heading text-espresso text-2xl font-semibold">Cold Brew</h3>
+            <span class="font-heading text-saddle text-xl font-bold">HK$52</span>
+          </div>
+          <p class="text-espresso/70 text-sm leading-relaxed">
+            Steeped for 18 hours in cold water — naturally sweet, low-acid, and refreshingly smooth.
+          </p>
+          <div class="mt-4 flex gap-2">
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Cold</span>
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Seasonal</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6 — Cortado -->
+      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
+        <div class="h-52 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80&fit=crop"
+               alt="Cortado" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-heading text-espresso text-2xl font-semibold">Cortado</h3>
+            <span class="font-heading text-saddle text-xl font-bold">HK$40</span>
+          </div>
+          <p class="text-espresso/70 text-sm leading-relaxed">
+            Equal parts espresso and warm milk — the purist's choice for cutting through intensity with grace.
+          </p>
+          <div class="mt-4 flex gap-2">
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Purist</span>
+            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Hot</span>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /grid -->
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     INSTAGRAM FEED MOCKUP
+═══════════════════════════════════════════════════════════════ -->
+<section id="gallery" class="py-24 md:py-32 bg-parchment">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+
+    <!-- Heading -->
+    <div class="text-center mb-14 reveal">
+      <p class="font-heading text-saddle tracking-[0.3em] uppercase text-sm mb-3">Life at Brew &amp; Co.</p>
+      <h2 class="font-heading text-espresso text-4xl md:text-5xl font-bold mb-4">Our Instagram</h2>
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 text-saddle hover:text-sienna font-heading tracking-widest uppercase text-sm transition">
+        <i class="fab fa-instagram text-lg"></i> Follow Us @brewandco.hk
+      </a>
+    </div>
+
+    <!-- 6-tile grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 reveal">
+
+      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1495474472645-4c71bcdd2014?w=500&q=80&fit=crop" alt="Café interior" />
+        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
+          <i class="fab fa-instagram text-white text-3xl"></i>
+        </div>
+      </div>
+
+      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=500&q=80&fit=crop" alt="Barista at work" />
+        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
+          <i class="fab fa-instagram text-white text-3xl"></i>
+        </div>
+      </div>
+
+      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&q=80&fit=crop" alt="Latte art" />
+        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
+          <i class="fab fa-instagram text-white text-3xl"></i>
+        </div>
+      </div>
+
+      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=500&q=80&fit=crop" alt="Coffee shop ambiance" />
+        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
+          <i class="fab fa-instagram text-white text-3xl"></i>
+        </div>
+      </div>
+
+      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&q=80&fit=crop" alt="Cold brew" />
+        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
+          <i class="fab fa-instagram text-white text-3xl"></i>
+        </div>
+      </div>
+
+      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500&q=80&fit=crop" alt="Café table scene" />
+        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
+          <i class="fab fa-instagram text-white text-3xl"></i>
+        </div>
+      </div>
+
+    </div><!-- /grid -->
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TESTIMONIALS
+═══════════════════════════════════════════════════════════════ -->
+<section id="testimonials" class="py-24 md:py-32 bg-espresso">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+
+    <!-- Heading -->
+    <div class="text-center mb-16 reveal">
+      <p class="font-heading text-tan tracking-[0.3em] uppercase text-sm mb-3">Kind Words</p>
+      <h2 class="font-heading text-white text-4xl md:text-5xl font-bold">What Our Guests Say</h2>
+      <div class="mt-4 mx-auto w-16 h-0.5 bg-tan"></div>
+    </div>
+
+    <!-- 3-card grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- Testimonial 1 -->
+      <div class="testi-card bg-white/5 border border-white/10 rounded-2xl p-8 reveal">
+        <div class="flex gap-1 mb-5">
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+        </div>
+        <p class="text-white/80 text-base leading-relaxed mb-6 italic">
+          "Brew &amp; Co. has completely changed my morning routine. The flat white is the best I've had in Hong Kong — maybe anywhere. The space is calm, the staff are genuinely passionate, and every visit feels like a small luxury."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-tan/30 flex items-center justify-center font-heading text-tan font-bold text-lg">S</div>
+          <div>
+            <p class="font-heading text-white font-semibold">Sarah Chen</p>
+            <p class="text-white/40 text-xs tracking-wide">Central, Hong Kong</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="testi-card bg-white/5 border border-white/10 rounded-2xl p-8 reveal">
+        <div class="flex gap-1 mb-5">
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+        </div>
+        <p class="text-white/80 text-base leading-relaxed mb-6 italic">
+          "I work remotely and have tried every café in Central. Brew &amp; Co. wins on every level — the cold brew is exceptional, the Wi-Fi is fast, and the atmosphere strikes the perfect balance between buzzy and peaceful."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-tan/30 flex items-center justify-center font-heading text-tan font-bold text-lg">M</div>
+          <div>
+            <p class="font-heading text-white font-semibold">Marcus Wong</p>
+            <p class="text-white/40 text-xs tracking-wide">Sheung Wan, Hong Kong</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="testi-card bg-white/5 border border-white/10 rounded-2xl p-8 reveal">
+        <div class="flex gap-1 mb-5">
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+          <i class="fas fa-star text-tan"></i>
+        </div>
+        <p class="text-white/80 text-base leading-relaxed mb-6 italic">
+          "The single-origin pour-over here is a revelation. You can taste the care that goes into every step of the process. I bring every out-of-town visitor here — it never fails to impress. A true gem on Hollywood Road."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-tan/30 flex items-center justify-center font-heading text-tan font-bold text-lg">E</div>
+          <div>
+            <p class="font-heading text-white font-semibold">Emily Liu</p>
+            <p class="text-white/40 text-xs tracking-wide">Mid-Levels, Hong Kong</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid -->
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     LOCATION & HOURS
+═══════════════════════════════════════════════════════════════ -->
+<section id="location" class="py-24 md:py-32 bg-cream">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+
+    <!-- Heading -->
+    <div class="text-center mb-16 reveal">
+      <p class="font-heading text-saddle tracking-[0.3em] uppercase text-sm mb-3">Come Visit Us</p>
+      <h2 class="font-heading text-espresso text-4xl md:text-5xl font-bold">Location &amp; Hours</h2>
+      <div class="mt-4 mx-auto w-16 h-0.5 bg-tan"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+      <!-- Left: Info panel -->
+      <div class="reveal space-y-8">
+
+        <!-- Address -->
+        <div class="bg-white rounded-2xl p-8 shadow-md">
+          <h3 class="font-heading text-espresso text-2xl font-semibold mb-4 flex items-center gap-3">
+            <i class="fas fa-map-marker-alt text-saddle"></i> Our Address
+          </h3>
+          <p class="text-espresso/80 text-base leading-relaxed">
+            G/F, 123 Hollywood Road<br/>
+            Central, Hong Kong Island<br/>
+            Hong Kong SAR
+          </p>
+          <p class="mt-3 text-espresso/60 text-sm">
+            <i class="fas fa-subway mr-1 text-saddle"></i> Nearest MTR: Central Station, Exit D2 (5 min walk)
+          </p>
+        </div>
+
+        <!-- Hours -->
+        <div class="bg-white rounded-2xl p-8 shadow-md">
+          <h3 class="font-heading text-espresso text-2xl font-semibold mb-5 flex items-center gap-3">
+            <i class="fas fa-clock text-saddle"></i> Opening Hours
+          </h3>
+          <table class="w-full text-sm">
+            <tbody>
+              <tr class="hours-row">
+                <td class="py-3 px-3 font-heading text-espresso font-semibold tracking-wide uppercase text-xs">Monday – Friday</td>
+                <td class="py-3 px-3 text-right text-espresso/70">7:00 AM – 8:00 PM</td>
+              </tr>
+              <tr class="hours-row">
+                <td class="py-3 px-3 font-heading text-espresso font-semibold tracking-wide uppercase text-xs">Saturday</td>
+                <td class="py-3 px-3 text-right text-espresso/70">8:00 AM – 9:00 PM</td>
+              </tr>
+              <tr class="hours-row">
+                <td class="py-3 px-3 font-heading text-espresso font-semibold tracking-wide uppercase text-xs">Sunday</td>
+                <td class="py-3 px-3 text-right text-espresso/70">9:00 AM – 7:00 PM</td>
+              </tr>
+              <tr class="hours-row">
+                <td class="py-3 px-3 font-heading text-espresso font-semibold tracking-wide uppercase text-xs">Public Holidays</td>
+                <td class="py-3 px-3 text-right text-espresso/70">10:00 AM – 6:00 PM</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Contact -->
+        <div class="bg-white rounded-2xl p-8 shadow-md">
+          <h3 class="font-heading text-espresso text-2xl font-semibold mb-4 flex items-center gap-3">
+            <i class="fas fa-phone text-saddle"></i> Get in Touch
+          </h3>
+          <div class="space-y-3 text-espresso/80 text-sm">
+            <p><i class="fas fa-phone-alt mr-2 text-saddle w-4"></i> +852 2234 5678</p>
+            <p><i class="fas fa-envelope mr-2 text-saddle w-4"></i> hello@brewandco.hk</p>
+            <p><i class="fab fa-whatsapp mr-2 text-saddle w-4"></i> WhatsApp: +852 9876 5432</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Google Maps embed (Central, Hong Kong) -->
+      <div class="reveal rounded-2xl overflow-hidden shadow-xl h-[520px]">
+        <iframe
+          title="Brew & Co. location — Central, Hong Kong"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.9856944088254!2d114.15275!3d22.28374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3404007b7f9c9c9f%3A0x0!2sHollywood%20Rd%2C%20Central%2C%20Hong%20Kong!5e0!3m2!1sen!2shk!4v1700000000000!5m2!1sen!2shk"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════════ -->
+<footer class="bg-espresso text-white">
+
+  <!-- Main footer content -->
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+      <!-- Brand -->
+      <div>
+        <a href="#home" class="font-heading text-3xl font-bold text-white flex items-center gap-2 mb-4">
+          <span class="text-tan">✦</span> Brew &amp; Co.
+        </a>
+        <p class="text-white/60 text-sm leading-relaxed max-w-xs">
+          Specialty coffee crafted with passion on Hollywood Road, Central, Hong Kong. Your daily ritual, elevated.
+        </p>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <h4 class="font-heading text-tan tracking-widest uppercase text-xs mb-5">Navigate</h4>
+        <ul class="space-y-2 text-sm text-white/60">
+          <li><a href="#home"        class="hover:text-tan transition">Home</a></li>
+          <li><a href="#about"       class="hover:text-tan transition">About Us</a></li>
+          <li><a href="#menu"        class="hover:text-tan transition">Menu</a></li>
+          <li><a href="#gallery"     class="hover:text-tan transition">Gallery</a></li>
+          <li><a href="#testimonials"class="hover:text-tan transition">Reviews</a></li>
+          <li><a href="#location"    class="hover:text-tan transition">Location &amp; Hours</a></li>
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div>
+        <h4 class="font-heading text-tan tracking-widest uppercase text-xs mb-5">Follow Along</h4>
+        <div class="flex gap-4 mb-6">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener"
+             aria-label="Instagram"
+             class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:border-tan hover:bg-tan/10 transition">
+            <i class="fab fa-instagram text-lg"></i>
+          </a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener"
+             aria-label="Facebook"
+             class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:border-tan hover:bg-tan/10 transition">
+            <i class="fab fa-facebook-f text-lg"></i>
+          </a>
+          <a href="https://wa.me/85298765432" target="_blank" rel="noopener"
+             aria-label="WhatsApp"
+             class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:border-tan hover:bg-tan/10 transition">
+            <i class="fab fa-whatsapp text-lg"></i>
+          </a>
+        </div>
+        <p class="text-white/40 text-xs">@brewandco.hk</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/40 text-xs">
+      <p>&copy; 2025 Brew &amp; Co. All rights reserved.</p>
+      <p>Crafted with <span class="text-tan">♥</span> in Hong Kong</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════════ -->
+<script>
+  /* ── 1. Sticky navbar: transparent → white on scroll ─────────── */
+  const navbar   = document.getElementById('navbar');
+  const navLinks = navbar.querySelectorAll('.nav-link');
+  const navLogo  = navbar.querySelector('.nav-logo');
+
+  function handleNavScroll() {
+    const scrolled = window.scrollY > 60;
+    navbar.classList.toggle('scrolled', scrolled);
+
+    // Switch link colours
+    navLinks.forEach(link => {
+      link.classList.toggle('text-white/90', !scrolled);
+      link.classList.toggle('text-espresso', scrolled);
+    });
+  }
+
+  window.addEventListener('scroll', handleNavScroll, { passive: true });
+  handleNavScroll(); // run once on load
+
+
+  /* ── 2. Hamburger menu toggle ─────────────────────────────────── */
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamIcon    = document.getElementById('ham-icon');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+  });
+
+  // Close mobile menu when any link is clicked
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamIcon.className = 'fas fa-bars';
+    });
+  });
+
+
+  /* ── 3. Smooth scroll (polyfill for Safari) ───────────────────── */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const offset = navbar.offsetHeight;
+      const top    = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+
+  /* ── 4. Scroll-reveal (IntersectionObserver) ─────────────────── */
+  const revealEls = document.querySelectorAll('.reveal');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // animate once
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealEls.forEach(el => observer.observe(el));
+
+
+  /* ── 5. Active nav link highlight on scroll ───────────────────── */
+  const sections = document.querySelectorAll('section[id], header[id]');
+  const desktopLinks = document.querySelectorAll('nav a[href^="#"]');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        desktopLinks.forEach(link => {
+          const match = link.getAttribute('href') === `#${id}`;
+          link.classList.toggle('text-tan', match);
+          link.classList.toggle('font-semibold', match);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  sections.forEach(section => sectionObserver.observe(section));
+</script>
+
+</body>
+</html>
