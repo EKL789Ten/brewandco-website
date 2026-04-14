@@ -3,35 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brew &amp; Co. — Specialty Coffee · Hong Kong</title>
+  <title>MarketMinds 2026 — The Student Marketing Summit</title>
+  <meta name="description" content="MarketMinds 2026 — Hong Kong's premier student marketing summit. 15 November 2026 at the Hong Kong Convention and Exhibition Centre, Wan Chai." />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Fonts: Oswald (headings) + Lora (body) -->
+  <!-- Google Fonts: Space Grotesk (heading) + Inter (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-  <!-- Font Awesome 6 (social + UI icons) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <script>
-    /* ── Tailwind config ─────────────────────────────────────────── */
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            heading: ['Oswald', 'sans-serif'],
-            body:    ['Lora', 'serif'],
-          },
           colors: {
-            espresso:  '#362C26',
-            saddle:    '#8B4513',
-            sienna:    '#A0522D',
-            tan:       '#D2B48C',
-            cream:     '#F5F0E8',
-            parchment: '#FAF6F0',
+            purple: {
+              950: '#1a0533',
+              900: '#2d0a5e',
+              800: '#3d0f7a',
+              700: '#5b21b6',
+              600: '#7c3aed',
+              500: '#8b5cf6',
+            },
+            lime: {
+              400: '#a3e635',
+              300: '#bef264',
+              200: '#d9f99d',
+            },
+          },
+          fontFamily: {
+            heading: ['Space Grotesk', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
           },
         },
       },
@@ -39,786 +43,1165 @@
   </script>
 
   <style>
-    /* ── Base typography ─────────────────────────────────────────── */
-    body { font-family: 'Lora', serif; background-color: #FAF6F0; color: #362C26; }
-    h1,h2,h3,h4,h5,h6,.font-heading { font-family: 'Oswald', sans-serif; }
+    body { font-family: 'Inter', sans-serif; background-color: #0f0020; color: #f0e6ff; }
+    h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; }
 
-    /* ── Navbar transition ───────────────────────────────────────── */
-    #navbar {
-      transition: background-color 0.35s ease, box-shadow 0.35s ease;
+    /* Gradient text utility */
+    .gradient-text {
+      background: linear-gradient(135deg, #a3e635 0%, #8b5cf6 60%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    #navbar.scrolled {
-      background-color: #ffffff;
-      box-shadow: 0 2px 16px rgba(54,44,38,0.12);
-    }
-    #navbar.scrolled .nav-link  { color: #362C26; }
-    #navbar.scrolled .nav-logo  { color: #8B4513; }
-    #navbar.scrolled #hamburger { color: #362C26; }
 
-    /* ── Hero overlay ────────────────────────────────────────────── */
+    /* Navbar scroll effect */
+    #navbar { transition: background 0.3s, box-shadow 0.3s; }
+    #navbar.scrolled { background: rgba(15, 0, 32, 0.97) !important; box-shadow: 0 2px 24px rgba(139,92,246,0.18); }
+
+    /* Active nav link */
+    .nav-link.active { color: #a3e635; border-bottom: 2px solid #a3e635; }
+
+    /* Accordion */
+    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .accordion-content.open { max-height: 600px; }
+    .accordion-icon { transition: transform 0.3s ease; }
+    .accordion-icon.open { transform: rotate(45deg); }
+
+    /* Countdown units */
+    .countdown-unit { min-width: 72px; }
+
+    /* Hero overlay */
     .hero-overlay {
-      background: linear-gradient(
-        to bottom,
-        rgba(54,44,38,0.55) 0%,
-        rgba(54,44,38,0.72) 60%,
-        rgba(54,44,38,0.85) 100%
-      );
+      background: linear-gradient(135deg, rgba(26,5,51,0.88) 0%, rgba(61,15,122,0.72) 50%, rgba(15,0,32,0.92) 100%);
     }
 
-    /* ── Menu card hover ─────────────────────────────────────────── */
-    .menu-card {
-      transition: transform 0.28s ease, box-shadow 0.28s ease;
-    }
-    .menu-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(54,44,38,0.18);
-    }
+    /* Ticket card hover */
+    .ticket-card { transition: transform 0.25s, box-shadow 0.25s; }
+    .ticket-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(139,92,246,0.35); }
 
-    /* ── Instagram tile hover ────────────────────────────────────── */
-    .insta-tile { overflow: hidden; }
-    .insta-tile img {
-      transition: transform 0.4s ease;
-      width: 100%; height: 100%; object-fit: cover;
-    }
-    .insta-tile:hover img { transform: scale(1.07); }
-    .insta-tile .insta-overlay {
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .insta-tile:hover .insta-overlay { opacity: 1; }
+    /* Speaker card hover */
+    .speaker-card { transition: transform 0.25s, box-shadow 0.25s; }
+    .speaker-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(163,230,53,0.2); }
 
-    /* ── Testimonial card hover ──────────────────────────────────── */
-    .testi-card {
-      transition: transform 0.28s ease, box-shadow 0.28s ease;
-    }
-    .testi-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 28px rgba(54,44,38,0.13);
-    }
+    /* Smooth section reveal */
+    section { scroll-margin-top: 72px; }
 
-    /* ── CTA button pulse ────────────────────────────────────────── */
-    .btn-cta {
-      transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+    /* Urgency badge pulse */
+    @keyframes pulse-lime {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(163,230,53,0.5); }
+      50% { box-shadow: 0 0 0 8px rgba(163,230,53,0); }
     }
-    .btn-cta:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 24px rgba(139,69,19,0.38);
-    }
+    .urgency-badge { animation: pulse-lime 2s infinite; }
 
-    /* ── Section fade-in on scroll ───────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── Hours table alternating rows ───────────────────────────── */
-    .hours-row:nth-child(even) { background-color: rgba(210,180,140,0.15); }
-
-    /* ── Mobile menu slide ───────────────────────────────────────── */
-    #mobile-menu {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease;
-    }
-    #mobile-menu.open { max-height: 400px; }
+    /* Sponsor logo filter */
+    .sponsor-logo { filter: brightness(0) invert(1); opacity: 0.65; transition: opacity 0.2s; }
+    .sponsor-logo:hover { opacity: 1; }
   </style>
 </head>
 
 <body class="antialiased">
 
-<!-- ═══════════════════════════════════════════════════════════════
-     NAVBAR
-═══════════════════════════════════════════════════════════════ -->
-<header id="navbar" class="fixed top-0 inset-x-0 z-50">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-    <div class="flex items-center justify-between h-16 md:h-20">
+<!-- ============================================================
+     STICKY NAVBAR
+============================================================ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 md:h-18">
 
       <!-- Logo -->
-      <a href="#home" class="nav-logo font-heading text-2xl md:text-3xl font-bold tracking-wide text-white flex items-center gap-2">
-        <span class="text-tan">✦</span> Brew &amp; Co.
+      <a href="#hero" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-lime-400 to-purple-600 flex items-center justify-center text-purple-950 font-heading font-black text-sm">MM</span>
+        <span class="font-heading font-bold text-white text-lg tracking-tight">Market<span class="text-lime-400">Minds</span> <span class="text-purple-500">2026</span></span>
       </a>
 
-      <!-- Desktop nav links -->
-      <nav class="hidden md:flex items-center gap-8">
-        <a href="#about"        class="nav-link text-white/90 hover:text-tan font-heading text-sm tracking-widest uppercase transition">About</a>
-        <a href="#menu"         class="nav-link text-white/90 hover:text-tan font-heading text-sm tracking-widest uppercase transition">Menu</a>
-        <a href="#gallery"      class="nav-link text-white/90 hover:text-tan font-heading text-sm tracking-widest uppercase transition">Gallery</a>
-        <a href="#testimonials" class="nav-link text-white/90 hover:text-tan font-heading text-sm tracking-widest uppercase transition">Reviews</a>
-        <a href="#location"     class="nav-link text-white/90 hover:text-tan font-heading text-sm tracking-widest uppercase transition">Location</a>
-        <a href="#menu" class="btn-cta ml-2 bg-saddle text-white font-heading text-sm tracking-widest uppercase px-5 py-2 rounded-full">
-          Order Now
-        </a>
-      </nav>
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-1">
+        <a href="#about"    class="nav-link px-3 py-1 text-sm font-medium text-purple-200 hover:text-lime-400 transition-colors">About</a>
+        <a href="#speakers" class="nav-link px-3 py-1 text-sm font-medium text-purple-200 hover:text-lime-400 transition-colors">Speakers</a>
+        <a href="#schedule" class="nav-link px-3 py-1 text-sm font-medium text-purple-200 hover:text-lime-400 transition-colors">Schedule</a>
+        <a href="#tickets"  class="nav-link px-3 py-1 text-sm font-medium text-purple-200 hover:text-lime-400 transition-colors">Tickets</a>
+        <a href="#sponsors" class="nav-link px-3 py-1 text-sm font-medium text-purple-200 hover:text-lime-400 transition-colors">Sponsors</a>
+        <a href="#faq"      class="nav-link px-3 py-1 text-sm font-medium text-purple-200 hover:text-lime-400 transition-colors">FAQ</a>
+        <a href="#register" class="ml-4 px-5 py-2 rounded-full bg-lime-400 text-purple-950 font-heading font-bold text-sm hover:bg-lime-300 transition-colors shadow-lg">Register Now</a>
+      </div>
 
-      <!-- Hamburger -->
-      <button id="hamburger" class="md:hidden text-white text-2xl focus:outline-none" aria-label="Toggle menu">
-        <i id="ham-icon" class="fas fa-bars"></i>
+      <!-- Mobile hamburger -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-purple-200 hover:text-lime-400 focus:outline-none" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
       </button>
     </div>
   </div>
 
-  <!-- Mobile dropdown -->
-  <div id="mobile-menu" class="md:hidden bg-espresso/95 backdrop-blur-sm">
-    <div class="max-w-7xl mx-auto px-5 pb-5 flex flex-col gap-1 pt-2">
-      <a href="#about"        class="mobile-link font-heading text-white/90 hover:text-tan tracking-widest uppercase text-sm py-3 border-b border-white/10 transition">About</a>
-      <a href="#menu"         class="mobile-link font-heading text-white/90 hover:text-tan tracking-widest uppercase text-sm py-3 border-b border-white/10 transition">Menu</a>
-      <a href="#gallery"      class="mobile-link font-heading text-white/90 hover:text-tan tracking-widest uppercase text-sm py-3 border-b border-white/10 transition">Gallery</a>
-      <a href="#testimonials" class="mobile-link font-heading text-white/90 hover:text-tan tracking-widest uppercase text-sm py-3 border-b border-white/10 transition">Reviews</a>
-      <a href="#location"     class="mobile-link font-heading text-white/90 hover:text-tan tracking-widest uppercase text-sm py-3 transition">Location</a>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-purple-950/98 border-t border-purple-800/50 px-4 pb-4">
+    <div class="flex flex-col gap-1 pt-2">
+      <a href="#about"    class="mobile-nav-link block px-3 py-2 rounded-lg text-purple-200 hover:text-lime-400 hover:bg-purple-900/50 font-medium transition-colors">About</a>
+      <a href="#speakers" class="mobile-nav-link block px-3 py-2 rounded-lg text-purple-200 hover:text-lime-400 hover:bg-purple-900/50 font-medium transition-colors">Speakers</a>
+      <a href="#schedule" class="mobile-nav-link block px-3 py-2 rounded-lg text-purple-200 hover:text-lime-400 hover:bg-purple-900/50 font-medium transition-colors">Schedule</a>
+      <a href="#tickets"  class="mobile-nav-link block px-3 py-2 rounded-lg text-purple-200 hover:text-lime-400 hover:bg-purple-900/50 font-medium transition-colors">Tickets</a>
+      <a href="#sponsors" class="mobile-nav-link block px-3 py-2 rounded-lg text-purple-200 hover:text-lime-400 hover:bg-purple-900/50 font-medium transition-colors">Sponsors</a>
+      <a href="#faq"      class="mobile-nav-link block px-3 py-2 rounded-lg text-purple-200 hover:text-lime-400 hover:bg-purple-900/50 font-medium transition-colors">FAQ</a>
+      <a href="#register" class="mt-2 block text-center px-5 py-2 rounded-full bg-lime-400 text-purple-950 font-heading font-bold hover:bg-lime-300 transition-colors">Register Now</a>
     </div>
   </div>
-</header>
+</nav>
 
 
-<!-- ═══════════════════════════════════════════════════════════════
-     HERO
-═══════════════════════════════════════════════════════════════ -->
-<section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+<!-- ============================================================
+     HERO SECTION
+============================================================ -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
 
   <!-- Background image -->
-  <img
-    src="https://images.unsplash.com/photo-1495474472645-4c71bcdd2014?w=1600&q=80&fit=crop"
-    alt="Brew & Co. café interior"
-    class="absolute inset-0 w-full h-full object-cover object-center"
-  />
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://images.unsplash.com/photo-1536599018102-9f803c140fc1?w=1920&q=80&auto=format&fit=crop"
+      alt="Hong Kong skyline at night"
+      class="w-full h-full object-cover object-center"
+    />
+    <div class="hero-overlay absolute inset-0"></div>
+  </div>
 
-  <!-- Dark gradient overlay -->
-  <div class="hero-overlay absolute inset-0"></div>
+  <!-- Decorative blobs -->
+  <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-700/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-lime-400/10 rounded-full blur-3xl pointer-events-none"></div>
 
-  <!-- Content -->
-  <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
-    <p class="font-heading text-tan tracking-[0.35em] uppercase text-sm md:text-base mb-5 reveal">
-      Specialty Coffee · Central, Hong Kong
-    </p>
-    <h1 class="font-heading text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6 reveal">
-      Your Daily<br/>Ritual,<br class="sm:hidden"/> Elevated.
+  <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-24 pb-16">
+
+    <!-- Event badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-lime-400/40 bg-lime-400/10 text-lime-400 text-sm font-medium mb-6">
+      <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+      Hong Kong Convention &amp; Exhibition Centre · 15 Nov 2026
+    </div>
+
+    <!-- Title -->
+    <h1 class="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-none mb-4">
+      <span class="gradient-text">MarketMinds</span><br/>
+      <span class="text-white">2026</span>
     </h1>
-    <p class="text-white/80 text-lg md:text-xl max-w-xl mx-auto mb-10 reveal">
-      Single-origin beans. Expert baristas. A sanctuary for coffee lovers in the heart of Hong Kong.
+
+    <p class="text-xl sm:text-2xl font-heading font-semibold text-purple-200 mb-3">The Student Marketing Summit</p>
+    <p class="text-base sm:text-lg text-purple-300 max-w-2xl mx-auto mb-8">
+      Hong Kong's most energetic one-day summit for the next generation of marketing leaders. Network, learn, and launch your career.
     </p>
-    <a href="#menu" class="btn-cta inline-block bg-saddle hover:bg-sienna text-white font-heading tracking-widest uppercase text-base px-10 py-4 rounded-full reveal">
-      View Our Menu
-    </a>
-  </div>
 
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 text-xs tracking-widest uppercase">
-    <span>Scroll</span>
-    <i class="fas fa-chevron-down animate-bounce"></i>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     ABOUT
-═══════════════════════════════════════════════════════════════ -->
-<section id="about" class="py-24 md:py-32 bg-parchment">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-      <!-- Left: image -->
-      <div class="relative reveal">
-        <img
-          src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80&fit=crop"
-          alt="Brew & Co. café interior"
-          class="w-full h-[480px] object-cover rounded-2xl shadow-2xl"
-        />
-        <!-- Decorative frame -->
-        <div class="absolute -bottom-5 -right-5 w-full h-full border-2 border-tan rounded-2xl -z-10"></div>
-      </div>
-
-      <!-- Right: story -->
-      <div class="reveal">
-        <!-- Founded badge -->
-        <div class="inline-flex items-center gap-2 bg-saddle text-white font-heading text-xs tracking-[0.25em] uppercase px-4 py-2 rounded-full mb-6">
-          <i class="fas fa-coffee"></i> Est. 2019
-        </div>
-
-        <h2 class="font-heading text-espresso text-4xl md:text-5xl font-bold leading-tight mb-6">
-          More Than a Cup.<br/>It's a Ritual.
-        </h2>
-
-        <p class="text-espresso/80 text-lg leading-relaxed mb-5">
-          Founded in 2019 by two Hong Kong coffee obsessives, Brew &amp; Co. was born from a simple belief: that every cup should be an experience worth savouring. We source exclusively from sustainable, single-origin farms across Ethiopia, Colombia, and Taiwan, working directly with growers who share our uncompromising standards.
-        </p>
-        <p class="text-espresso/80 text-lg leading-relaxed mb-5">
-          Our baristas are trained to treat each brew as a craft — from the precise grind to the final pour — ensuring that whether you order an espresso or a cold brew, it arrives as a small, perfect moment in your day.
-        </p>
-        <p class="text-espresso/80 text-lg leading-relaxed">
-          Nestled on Hollywood Road in Central, our café is a warm refuge from the city's pace — a place to slow down, connect, and let great coffee do the talking.
-        </p>
-
-        <div class="mt-8 flex flex-wrap gap-8">
-          <div>
-            <p class="font-heading text-4xl font-bold text-saddle">12+</p>
-            <p class="text-sm text-espresso/60 tracking-wide uppercase">Origins Sourced</p>
-          </div>
-          <div>
-            <p class="font-heading text-4xl font-bold text-saddle">5K+</p>
-            <p class="text-sm text-espresso/60 tracking-wide uppercase">Happy Regulars</p>
-          </div>
-          <div>
-            <p class="font-heading text-4xl font-bold text-saddle">6</p>
-            <p class="text-sm text-espresso/60 tracking-wide uppercase">Years Brewing</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     MENU HIGHLIGHTS
-═══════════════════════════════════════════════════════════════ -->
-<section id="menu" class="py-24 md:py-32 bg-cream">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-    <!-- Heading -->
-    <div class="text-center mb-16 reveal">
-      <p class="font-heading text-saddle tracking-[0.3em] uppercase text-sm mb-3">What We Brew</p>
-      <h2 class="font-heading text-espresso text-4xl md:text-5xl font-bold">Signature Menu</h2>
-      <div class="mt-4 mx-auto w-16 h-0.5 bg-tan"></div>
+    <!-- Urgency badge -->
+    <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-500/20 border border-red-400/50 text-red-300 font-heading font-bold text-sm mb-8 urgency-badge">
+      🔥 Only 47 seats left! — Don't miss out
     </div>
 
-    <!-- 6-card grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Countdown timer -->
+    <div class="flex justify-center gap-3 sm:gap-5 mb-10" id="countdown">
+      <div class="countdown-unit flex flex-col items-center bg-white/5 backdrop-blur border border-purple-700/40 rounded-2xl px-4 py-3">
+        <span id="cd-days" class="font-heading font-black text-4xl sm:text-5xl text-lime-400 leading-none">--</span>
+        <span class="text-xs text-purple-300 mt-1 uppercase tracking-widest">Days</span>
+      </div>
+      <div class="countdown-unit flex flex-col items-center bg-white/5 backdrop-blur border border-purple-700/40 rounded-2xl px-4 py-3">
+        <span id="cd-hours" class="font-heading font-black text-4xl sm:text-5xl text-lime-400 leading-none">--</span>
+        <span class="text-xs text-purple-300 mt-1 uppercase tracking-widest">Hours</span>
+      </div>
+      <div class="countdown-unit flex flex-col items-center bg-white/5 backdrop-blur border border-purple-700/40 rounded-2xl px-4 py-3">
+        <span id="cd-mins" class="font-heading font-black text-4xl sm:text-5xl text-lime-400 leading-none">--</span>
+        <span class="text-xs text-purple-300 mt-1 uppercase tracking-widest">Mins</span>
+      </div>
+      <div class="countdown-unit flex flex-col items-center bg-white/5 backdrop-blur border border-purple-700/40 rounded-2xl px-4 py-3">
+        <span id="cd-secs" class="font-heading font-black text-4xl sm:text-5xl text-white leading-none">--</span>
+        <span class="text-xs text-purple-300 mt-1 uppercase tracking-widest">Secs</span>
+      </div>
+    </div>
 
-      <!-- Card 1 — Espresso -->
-      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
-        <div class="h-52 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=600&q=80&fit=crop"
-               alt="Espresso" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-heading text-espresso text-2xl font-semibold">Espresso</h3>
-            <span class="font-heading text-saddle text-xl font-bold">HK$28</span>
-          </div>
-          <p class="text-espresso/70 text-sm leading-relaxed">
-            Pure, bold, and unapologetically intense — a double shot of our house-blend, pulled to perfection.
-          </p>
-          <div class="mt-4 flex gap-2">
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Single Origin</span>
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Hot</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 2 — Flat White -->
-      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
-        <div class="h-52 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1577968897966-3d4325b36b61?w=600&q=80&fit=crop"
-               alt="Flat White" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-heading text-espresso text-2xl font-semibold">Flat White</h3>
-            <span class="font-heading text-saddle text-xl font-bold">HK$42</span>
-          </div>
-          <p class="text-espresso/70 text-sm leading-relaxed">
-            Velvety microfoam meets a ristretto double shot. Silky, rich, and beautifully balanced.
-          </p>
-          <div class="mt-4 flex gap-2">
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Bestseller</span>
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Hot</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 3 — Cappuccino -->
-      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
-        <div class="h-52 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80&fit=crop"
-               alt="Cappuccino" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-heading text-espresso text-2xl font-semibold">Cappuccino</h3>
-            <span class="font-heading text-saddle text-xl font-bold">HK$45</span>
-          </div>
-          <p class="text-espresso/70 text-sm leading-relaxed">
-            Classic Italian elegance — equal thirds of espresso, steamed milk, and a generous cloud of foam.
-          </p>
-          <div class="mt-4 flex gap-2">
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Classic</span>
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Hot</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 4 — Latte -->
-      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
-        <div class="h-52 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?w=600&q=80&fit=crop"
-               alt="Latte" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-heading text-espresso text-2xl font-semibold">Latte</h3>
-            <span class="font-heading text-saddle text-xl font-bold">HK$48</span>
-          </div>
-          <p class="text-espresso/70 text-sm leading-relaxed">
-            Smooth, comforting, and adorned with hand-poured latte art. A daily ritual made beautiful.
-          </p>
-          <div class="mt-4 flex gap-2">
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Latte Art</span>
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Hot / Iced</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 5 — Cold Brew -->
-      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
-        <div class="h-52 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80&fit=crop"
-               alt="Cold Brew" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-heading text-espresso text-2xl font-semibold">Cold Brew</h3>
-            <span class="font-heading text-saddle text-xl font-bold">HK$52</span>
-          </div>
-          <p class="text-espresso/70 text-sm leading-relaxed">
-            Steeped for 18 hours in cold water — naturally sweet, low-acid, and refreshingly smooth.
-          </p>
-          <div class="mt-4 flex gap-2">
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Cold</span>
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Seasonal</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 6 — Cortado -->
-      <article class="menu-card bg-white rounded-2xl overflow-hidden shadow-md reveal">
-        <div class="h-52 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80&fit=crop"
-               alt="Cortado" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-heading text-espresso text-2xl font-semibold">Cortado</h3>
-            <span class="font-heading text-saddle text-xl font-bold">HK$40</span>
-          </div>
-          <p class="text-espresso/70 text-sm leading-relaxed">
-            Equal parts espresso and warm milk — the purist's choice for cutting through intensity with grace.
-          </p>
-          <div class="mt-4 flex gap-2">
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Purist</span>
-            <span class="text-xs bg-cream text-saddle font-heading tracking-wide uppercase px-3 py-1 rounded-full">Hot</span>
-          </div>
-        </div>
-      </article>
-
-    </div><!-- /grid -->
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     INSTAGRAM FEED MOCKUP
-═══════════════════════════════════════════════════════════════ -->
-<section id="gallery" class="py-24 md:py-32 bg-parchment">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-    <!-- Heading -->
-    <div class="text-center mb-14 reveal">
-      <p class="font-heading text-saddle tracking-[0.3em] uppercase text-sm mb-3">Life at Brew &amp; Co.</p>
-      <h2 class="font-heading text-espresso text-4xl md:text-5xl font-bold mb-4">Our Instagram</h2>
-      <a href="https://www.instagram.com/" target="_blank" rel="noopener"
-         class="inline-flex items-center gap-2 text-saddle hover:text-sienna font-heading tracking-widest uppercase text-sm transition">
-        <i class="fab fa-instagram text-lg"></i> Follow Us @brewandco.hk
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="#register" class="w-full sm:w-auto px-8 py-4 rounded-full bg-lime-400 text-purple-950 font-heading font-black text-lg hover:bg-lime-300 transition-all shadow-xl hover:shadow-lime-400/30">
+        Secure Your Seat →
+      </a>
+      <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-full border border-purple-500/60 text-purple-200 font-heading font-semibold text-lg hover:border-lime-400 hover:text-lime-400 transition-all">
+        Learn More
       </a>
     </div>
 
-    <!-- 6-tile grid -->
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 reveal">
+    <!-- Event meta -->
+    <div class="flex flex-wrap justify-center gap-6 mt-10 text-sm text-purple-300">
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        15 November 2026
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        9:00 AM – 6:00 PM HKT
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        HKCEC, Wan Chai, Hong Kong
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        300 Seats · Limited Availability
+      </span>
+    </div>
+  </div>
 
-      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
-        <img src="https://images.unsplash.com/photo-1495474472645-4c71bcdd2014?w=500&q=80&fit=crop" alt="Café interior" />
-        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
-          <i class="fab fa-instagram text-white text-3xl"></i>
-        </div>
-      </div>
-
-      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
-        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=500&q=80&fit=crop" alt="Barista at work" />
-        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
-          <i class="fab fa-instagram text-white text-3xl"></i>
-        </div>
-      </div>
-
-      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
-        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&q=80&fit=crop" alt="Latte art" />
-        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
-          <i class="fab fa-instagram text-white text-3xl"></i>
-        </div>
-      </div>
-
-      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
-        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=500&q=80&fit=crop" alt="Coffee shop ambiance" />
-        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
-          <i class="fab fa-instagram text-white text-3xl"></i>
-        </div>
-      </div>
-
-      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
-        <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&q=80&fit=crop" alt="Cold brew" />
-        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
-          <i class="fab fa-instagram text-white text-3xl"></i>
-        </div>
-      </div>
-
-      <div class="insta-tile aspect-square rounded-xl relative cursor-pointer">
-        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500&q=80&fit=crop" alt="Café table scene" />
-        <div class="insta-overlay absolute inset-0 bg-espresso/50 flex items-center justify-center rounded-xl">
-          <i class="fab fa-instagram text-white text-3xl"></i>
-        </div>
-      </div>
-
-    </div><!-- /grid -->
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+    <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+    </svg>
   </div>
 </section>
 
 
-<!-- ═══════════════════════════════════════════════════════════════
-     TESTIMONIALS
-═══════════════════════════════════════════════════════════════ -->
-<section id="testimonials" class="py-24 md:py-32 bg-espresso">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+<!-- ============================================================
+     ABOUT SECTION
+============================================================ -->
+<section id="about" class="py-20 md:py-28 bg-gradient-to-b from-purple-950/80 to-[#0f0020]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- Heading -->
-    <div class="text-center mb-16 reveal">
-      <p class="font-heading text-tan tracking-[0.3em] uppercase text-sm mb-3">Kind Words</p>
-      <h2 class="font-heading text-white text-4xl md:text-5xl font-bold">What Our Guests Say</h2>
-      <div class="mt-4 mx-auto w-16 h-0.5 bg-tan"></div>
+    <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <!-- Text -->
+      <div>
+        <span class="inline-block px-3 py-1 rounded-full bg-lime-400/10 border border-lime-400/30 text-lime-400 text-xs font-semibold uppercase tracking-widest mb-4">About the Summit</span>
+        <h2 class="font-heading font-black text-4xl sm:text-5xl text-white mb-6 leading-tight">
+          Where Student Marketers<br/><span class="gradient-text">Shape the Future</span>
+        </h2>
+        <p class="text-purple-200 text-base leading-relaxed mb-5">
+          MarketMinds 2026 is Hong Kong's premier one-day student marketing summit, bringing together 300 of the city's brightest marketing minds for a day of inspiration, learning, and connection. Whether you're studying brand strategy, digital marketing, or consumer behaviour, this is your launchpad.
+        </p>
+        <p class="text-purple-300 text-base leading-relaxed mb-8">
+          Expect keynote talks from industry leaders, hands-on workshops, live brand challenges, and unparalleled networking opportunities with recruiters and peers across Hong Kong's top universities.
+        </p>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4">
+          <div class="text-center p-4 rounded-2xl bg-white/5 border border-purple-800/40">
+            <div class="font-heading font-black text-3xl text-lime-400">300</div>
+            <div class="text-xs text-purple-300 mt-1">Attendees</div>
+          </div>
+          <div class="text-center p-4 rounded-2xl bg-white/5 border border-purple-800/40">
+            <div class="font-heading font-black text-3xl text-lime-400">12+</div>
+            <div class="text-xs text-purple-300 mt-1">Speakers</div>
+          </div>
+          <div class="text-center p-4 rounded-2xl bg-white/5 border border-purple-800/40">
+            <div class="font-heading font-black text-3xl text-lime-400">8</div>
+            <div class="text-xs text-purple-300 mt-1">Sessions</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="relative">
+        <div class="absolute -inset-4 bg-gradient-to-br from-purple-600/20 to-lime-400/10 rounded-3xl blur-xl"></div>
+        <img
+          src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80&auto=format&fit=crop"
+          alt="Marketing summit audience"
+          class="relative rounded-3xl w-full h-72 sm:h-96 object-cover border border-purple-700/30 shadow-2xl"
+        />
+        <!-- Floating badge -->
+        <div class="absolute -bottom-4 -left-4 bg-purple-900 border border-purple-700 rounded-2xl px-4 py-3 shadow-xl">
+          <div class="font-heading font-black text-2xl text-lime-400">15 Nov</div>
+          <div class="text-xs text-purple-300">2026 · HKCEC</div>
+        </div>
+      </div>
     </div>
 
-    <!-- 3-card grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-      <!-- Testimonial 1 -->
-      <div class="testi-card bg-white/5 border border-white/10 rounded-2xl p-8 reveal">
-        <div class="flex gap-1 mb-5">
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
+    <!-- Theme pillars -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-16">
+      <div class="p-6 rounded-2xl bg-white/5 border border-purple-800/40 hover:border-lime-400/40 transition-colors group">
+        <div class="w-10 h-10 rounded-xl bg-lime-400/10 flex items-center justify-center mb-4 group-hover:bg-lime-400/20 transition-colors">
+          <svg class="w-5 h-5 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
         </div>
-        <p class="text-white/80 text-base leading-relaxed mb-6 italic">
-          "Brew &amp; Co. has completely changed my morning routine. The flat white is the best I've had in Hong Kong — maybe anywhere. The space is calm, the staff are genuinely passionate, and every visit feels like a small luxury."
-        </p>
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-tan/30 flex items-center justify-center font-heading text-tan font-bold text-lg">S</div>
-          <div>
-            <p class="font-heading text-white font-semibold">Sarah Chen</p>
-            <p class="text-white/40 text-xs tracking-wide">Central, Hong Kong</p>
-          </div>
-        </div>
+        <h3 class="font-heading font-bold text-white mb-2">Digital Marketing</h3>
+        <p class="text-sm text-purple-300">Social media, SEO, performance marketing, and the latest in AI-driven campaigns.</p>
       </div>
-
-      <!-- Testimonial 2 -->
-      <div class="testi-card bg-white/5 border border-white/10 rounded-2xl p-8 reveal">
-        <div class="flex gap-1 mb-5">
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
+      <div class="p-6 rounded-2xl bg-white/5 border border-purple-800/40 hover:border-lime-400/40 transition-colors group">
+        <div class="w-10 h-10 rounded-xl bg-lime-400/10 flex items-center justify-center mb-4 group-hover:bg-lime-400/20 transition-colors">
+          <svg class="w-5 h-5 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
         </div>
-        <p class="text-white/80 text-base leading-relaxed mb-6 italic">
-          "I work remotely and have tried every café in Central. Brew &amp; Co. wins on every level — the cold brew is exceptional, the Wi-Fi is fast, and the atmosphere strikes the perfect balance between buzzy and peaceful."
-        </p>
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-tan/30 flex items-center justify-center font-heading text-tan font-bold text-lg">M</div>
-          <div>
-            <p class="font-heading text-white font-semibold">Marcus Wong</p>
-            <p class="text-white/40 text-xs tracking-wide">Sheung Wan, Hong Kong</p>
-          </div>
-        </div>
+        <h3 class="font-heading font-bold text-white mb-2">Brand Strategy</h3>
+        <p class="text-sm text-purple-300">Building iconic brands, storytelling, and positioning in competitive Asian markets.</p>
       </div>
-
-      <!-- Testimonial 3 -->
-      <div class="testi-card bg-white/5 border border-white/10 rounded-2xl p-8 reveal">
-        <div class="flex gap-1 mb-5">
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
-          <i class="fas fa-star text-tan"></i>
+      <div class="p-6 rounded-2xl bg-white/5 border border-purple-800/40 hover:border-lime-400/40 transition-colors group">
+        <div class="w-10 h-10 rounded-xl bg-lime-400/10 flex items-center justify-center mb-4 group-hover:bg-lime-400/20 transition-colors">
+          <svg class="w-5 h-5 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         </div>
-        <p class="text-white/80 text-base leading-relaxed mb-6 italic">
-          "The single-origin pour-over here is a revelation. You can taste the care that goes into every step of the process. I bring every out-of-town visitor here — it never fails to impress. A true gem on Hollywood Road."
-        </p>
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-tan/30 flex items-center justify-center font-heading text-tan font-bold text-lg">E</div>
-          <div>
-            <p class="font-heading text-white font-semibold">Emily Liu</p>
-            <p class="text-white/40 text-xs tracking-wide">Mid-Levels, Hong Kong</p>
-          </div>
-        </div>
+        <h3 class="font-heading font-bold text-white mb-2">Consumer Insights</h3>
+        <p class="text-sm text-purple-300">Understanding Gen Z behaviour, data analytics, and research methodologies.</p>
       </div>
-
-    </div><!-- /grid -->
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     LOCATION & HOURS
-═══════════════════════════════════════════════════════════════ -->
-<section id="location" class="py-24 md:py-32 bg-cream">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-    <!-- Heading -->
-    <div class="text-center mb-16 reveal">
-      <p class="font-heading text-saddle tracking-[0.3em] uppercase text-sm mb-3">Come Visit Us</p>
-      <h2 class="font-heading text-espresso text-4xl md:text-5xl font-bold">Location &amp; Hours</h2>
-      <div class="mt-4 mx-auto w-16 h-0.5 bg-tan"></div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-
-      <!-- Left: Info panel -->
-      <div class="reveal space-y-8">
-
-        <!-- Address -->
-        <div class="bg-white rounded-2xl p-8 shadow-md">
-          <h3 class="font-heading text-espresso text-2xl font-semibold mb-4 flex items-center gap-3">
-            <i class="fas fa-map-marker-alt text-saddle"></i> Our Address
-          </h3>
-          <p class="text-espresso/80 text-base leading-relaxed">
-            G/F, 123 Hollywood Road<br/>
-            Central, Hong Kong Island<br/>
-            Hong Kong SAR
-          </p>
-          <p class="mt-3 text-espresso/60 text-sm">
-            <i class="fas fa-subway mr-1 text-saddle"></i> Nearest MTR: Central Station, Exit D2 (5 min walk)
-          </p>
+      <div class="p-6 rounded-2xl bg-white/5 border border-purple-800/40 hover:border-lime-400/40 transition-colors group">
+        <div class="w-10 h-10 rounded-xl bg-lime-400/10 flex items-center justify-center mb-4 group-hover:bg-lime-400/20 transition-colors">
+          <svg class="w-5 h-5 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         </div>
-
-        <!-- Hours -->
-        <div class="bg-white rounded-2xl p-8 shadow-md">
-          <h3 class="font-heading text-espresso text-2xl font-semibold mb-5 flex items-center gap-3">
-            <i class="fas fa-clock text-saddle"></i> Opening Hours
-          </h3>
-          <table class="w-full text-sm">
-            <tbody>
-              <tr class="hours-row">
-                <td class="py-3 px-3 font-heading text-espresso font-semibold tracking-wide uppercase text-xs">Monday – Friday</td>
-                <td class="py-3 px-3 text-right text-espresso/70">7:00 AM – 8:00 PM</td>
-              </tr>
-              <tr class="hours-row">
-                <td class="py-3 px-3 font-heading text-espresso font-semibold tracking-wide uppercase text-xs">Saturday</td>
-                <td class="py-3 px-3 text-right text-espresso/70">8:00 AM – 9:00 PM</td>
-              </tr>
-              <tr class="hours-row">
-                <td class="py-3 px-3 font-heading text-espresso font-semibold tracking-wide uppercase text-xs">Sunday</td>
-                <td class="py-3 px-3 text-right text-espresso/70">9:00 AM – 7:00 PM</td>
-              </tr>
-              <tr class="hours-row">
-                <td class="py-3 px-3 font-heading text-espresso font-semibold tracking-wide uppercase text-xs">Public Holidays</td>
-                <td class="py-3 px-3 text-right text-espresso/70">10:00 AM – 6:00 PM</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Contact -->
-        <div class="bg-white rounded-2xl p-8 shadow-md">
-          <h3 class="font-heading text-espresso text-2xl font-semibold mb-4 flex items-center gap-3">
-            <i class="fas fa-phone text-saddle"></i> Get in Touch
-          </h3>
-          <div class="space-y-3 text-espresso/80 text-sm">
-            <p><i class="fas fa-phone-alt mr-2 text-saddle w-4"></i> +852 2234 5678</p>
-            <p><i class="fas fa-envelope mr-2 text-saddle w-4"></i> hello@brewandco.hk</p>
-            <p><i class="fab fa-whatsapp mr-2 text-saddle w-4"></i> WhatsApp: +852 9876 5432</p>
-          </div>
-        </div>
+        <h3 class="font-heading font-bold text-white mb-2">Career Launchpad</h3>
+        <p class="text-sm text-purple-300">Meet recruiters, build your portfolio, and land your first marketing role.</p>
       </div>
-
-      <!-- Right: Google Maps embed (Central, Hong Kong) -->
-      <div class="reveal rounded-2xl overflow-hidden shadow-xl h-[520px]">
-        <iframe
-          title="Brew & Co. location — Central, Hong Kong"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.9856944088254!2d114.15275!3d22.28374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3404007b7f9c9c9f%3A0x0!2sHollywood%20Rd%2C%20Central%2C%20Hong%20Kong!5e0!3m2!1sen!2shk!4v1700000000000!5m2!1sen!2shk"
-          width="100%"
-          height="100%"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
-
     </div>
   </div>
 </section>
 
 
-<!-- ═══════════════════════════════════════════════════════════════
+<!-- ============================================================
+     SPEAKERS SECTION
+============================================================ -->
+<section id="speakers" class="py-20 md:py-28 bg-[#0f0020]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14">
+      <span class="inline-block px-3 py-1 rounded-full bg-purple-600/20 border border-purple-600/40 text-purple-400 text-xs font-semibold uppercase tracking-widest mb-4">Featured Speakers</span>
+      <h2 class="font-heading font-black text-4xl sm:text-5xl text-white mb-4">Learn From the <span class="gradient-text">Best in the Game</span></h2>
+      <p class="text-purple-300 max-w-xl mx-auto">Industry leaders, brand builders, and digital innovators — all here for you.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Speaker 1 -->
+      <div class="speaker-card group relative p-6 rounded-3xl bg-white/5 border border-purple-800/40 hover:border-purple-600/60 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-lime-400/5 rounded-full -translate-y-8 translate-x-8 group-hover:bg-lime-400/10 transition-colors"></div>
+        <img
+          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80&auto=format&fit=crop&crop=face"
+          alt="Speaker — Sarah Chen"
+          class="w-20 h-20 rounded-2xl object-cover object-top mb-4 border-2 border-purple-700/50"
+        />
+        <h3 class="font-heading font-bold text-white text-lg mb-0.5">Sarah Chen</h3>
+        <p class="text-lime-400 text-sm font-medium mb-1">Chief Marketing Officer</p>
+        <p class="text-purple-400 text-xs mb-3">Cathay Pacific Airways</p>
+        <p class="text-purple-300 text-sm leading-relaxed">Pioneering data-driven brand storytelling across Asia-Pacific for over 15 years.</p>
+        <div class="mt-4 inline-block px-3 py-1 rounded-full bg-purple-800/50 text-purple-300 text-xs">Keynote</div>
+      </div>
+
+      <!-- Speaker 2 -->
+      <div class="speaker-card group relative p-6 rounded-3xl bg-white/5 border border-purple-800/40 hover:border-purple-600/60 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-lime-400/5 rounded-full -translate-y-8 translate-x-8 group-hover:bg-lime-400/10 transition-colors"></div>
+        <img
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format&fit=crop&crop=face"
+          alt="Speaker — Marcus Lam"
+          class="w-20 h-20 rounded-2xl object-cover object-top mb-4 border-2 border-purple-700/50"
+        />
+        <h3 class="font-heading font-bold text-white text-lg mb-0.5">Marcus Lam</h3>
+        <p class="text-lime-400 text-sm font-medium mb-1">Head of Growth Marketing</p>
+        <p class="text-purple-400 text-xs mb-3">Klook Travel Technology</p>
+        <p class="text-purple-300 text-sm leading-relaxed">Scaling user acquisition from zero to millions across Southeast Asia and Greater China.</p>
+        <div class="mt-4 inline-block px-3 py-1 rounded-full bg-purple-800/50 text-purple-300 text-xs">Workshop</div>
+      </div>
+
+      <!-- Speaker 3 -->
+      <div class="speaker-card group relative p-6 rounded-3xl bg-white/5 border border-purple-800/40 hover:border-purple-600/60 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-lime-400/5 rounded-full -translate-y-8 translate-x-8 group-hover:bg-lime-400/10 transition-colors"></div>
+        <img
+          src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80&auto=format&fit=crop&crop=face"
+          alt="Speaker — Priya Nair"
+          class="w-20 h-20 rounded-2xl object-cover object-top mb-4 border-2 border-purple-700/50"
+        />
+        <h3 class="font-heading font-bold text-white text-lg mb-0.5">Priya Nair</h3>
+        <p class="text-lime-400 text-sm font-medium mb-1">Director of Brand Strategy</p>
+        <p class="text-purple-400 text-xs mb-3">Ogilvy Hong Kong</p>
+        <p class="text-purple-300 text-sm leading-relaxed">Award-winning creative strategist behind some of Asia's most iconic brand campaigns.</p>
+        <div class="mt-4 inline-block px-3 py-1 rounded-full bg-purple-800/50 text-purple-300 text-xs">Panel</div>
+      </div>
+
+      <!-- Speaker 4 -->
+      <div class="speaker-card group relative p-6 rounded-3xl bg-white/5 border border-purple-800/40 hover:border-purple-600/60 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-lime-400/5 rounded-full -translate-y-8 translate-x-8 group-hover:bg-lime-400/10 transition-colors"></div>
+        <img
+          src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80&auto=format&fit=crop&crop=face"
+          alt="Speaker — David Wong"
+          class="w-20 h-20 rounded-2xl object-cover object-top mb-4 border-2 border-purple-700/50"
+        />
+        <h3 class="font-heading font-bold text-white text-lg mb-0.5">David Wong</h3>
+        <p class="text-lime-400 text-sm font-medium mb-1">VP of Digital Marketing</p>
+        <p class="text-purple-400 text-xs mb-3">HSBC Asia Pacific</p>
+        <p class="text-purple-300 text-sm leading-relaxed">Transforming financial services marketing through personalisation and AI-powered content.</p>
+        <div class="mt-4 inline-block px-3 py-1 rounded-full bg-purple-800/50 text-purple-300 text-xs">Keynote</div>
+      </div>
+
+      <!-- Speaker 5 -->
+      <div class="speaker-card group relative p-6 rounded-3xl bg-white/5 border border-purple-800/40 hover:border-purple-600/60 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-lime-400/5 rounded-full -translate-y-8 translate-x-8 group-hover:bg-lime-400/10 transition-colors"></div>
+        <img
+          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80&auto=format&fit=crop&crop=face"
+          alt="Speaker — Jessica Yuen"
+          class="w-20 h-20 rounded-2xl object-cover object-top mb-4 border-2 border-purple-700/50"
+        />
+        <h3 class="font-heading font-bold text-white text-lg mb-0.5">Jessica Yuen</h3>
+        <p class="text-lime-400 text-sm font-medium mb-1">Founder &amp; CEO</p>
+        <p class="text-purple-400 text-xs mb-3">BrandLab HK</p>
+        <p class="text-purple-300 text-sm leading-relaxed">Serial entrepreneur and Gen Z marketing expert helping startups find their authentic voice.</p>
+        <div class="mt-4 inline-block px-3 py-1 rounded-full bg-lime-400/20 text-lime-400 text-xs border border-lime-400/30">Fireside Chat</div>
+      </div>
+
+      <!-- Speaker 6 -->
+      <div class="speaker-card group relative p-6 rounded-3xl bg-white/5 border border-purple-800/40 hover:border-purple-600/60 overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-lime-400/5 rounded-full -translate-y-8 translate-x-8 group-hover:bg-lime-400/10 transition-colors"></div>
+        <img
+          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80&auto=format&fit=crop&crop=face"
+          alt="Speaker — Ryan Ho"
+          class="w-20 h-20 rounded-2xl object-cover object-top mb-4 border-2 border-purple-700/50"
+        />
+        <h3 class="font-heading font-bold text-white text-lg mb-0.5">Ryan Ho</h3>
+        <p class="text-lime-400 text-sm font-medium mb-1">Head of Social &amp; Influencer</p>
+        <p class="text-purple-400 text-xs mb-3">L'Oréal Greater China</p>
+        <p class="text-purple-300 text-sm leading-relaxed">Redefining beauty marketing through creator partnerships and social commerce innovation.</p>
+        <div class="mt-4 inline-block px-3 py-1 rounded-full bg-purple-800/50 text-purple-300 text-xs">Workshop</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SCHEDULE SECTION (ACCORDION)
+============================================================ -->
+<section id="schedule" class="py-20 md:py-28 bg-gradient-to-b from-[#0f0020] to-purple-950/60">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14">
+      <span class="inline-block px-3 py-1 rounded-full bg-lime-400/10 border border-lime-400/30 text-lime-400 text-xs font-semibold uppercase tracking-widest mb-4">Event Schedule</span>
+      <h2 class="font-heading font-black text-4xl sm:text-5xl text-white mb-4">Full Day of <span class="gradient-text">Inspiration</span></h2>
+      <p class="text-purple-300 max-w-xl mx-auto">15 November 2026 · 9:00 AM – 6:00 PM HKT · HKCEC, Wan Chai</p>
+    </div>
+
+    <div id="schedule-accordion" class="space-y-3">
+
+      <!-- Item 1 -->
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="schedule">
+          <div class="flex items-center gap-4">
+            <span class="text-lime-400 font-heading font-bold text-sm w-20 shrink-0">9:00 AM</span>
+            <div>
+              <div class="font-heading font-semibold text-white">Registration &amp; Welcome Coffee</div>
+              <div class="text-purple-400 text-xs mt-0.5">Networking · Lobby Level</div>
+            </div>
+          </div>
+          <span class="accordion-icon text-purple-400 text-xl font-light ml-4 shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            Kick off the day by collecting your badge, grabbing a coffee, and connecting with fellow attendees. Our team will be on hand to guide you through the venue. Networking tables will be organised by university and major.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="schedule">
+          <div class="flex items-center gap-4">
+            <span class="text-lime-400 font-heading font-bold text-sm w-20 shrink-0">9:45 AM</span>
+            <div>
+              <div class="font-heading font-semibold text-white">Opening Keynote: The Future of Marketing in Asia</div>
+              <div class="text-purple-400 text-xs mt-0.5">Sarah Chen · CMO, Cathay Pacific</div>
+            </div>
+          </div>
+          <span class="accordion-icon text-purple-400 text-xl font-light ml-4 shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            Sarah Chen will open MarketMinds 2026 with a compelling look at how AI, personalisation, and shifting consumer values are reshaping marketing across Asia-Pacific. Expect bold predictions and actionable frameworks you can apply immediately.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="schedule">
+          <div class="flex items-center gap-4">
+            <span class="text-lime-400 font-heading font-bold text-sm w-20 shrink-0">11:00 AM</span>
+            <div>
+              <div class="font-heading font-semibold text-white">Workshop: Growth Hacking for Startups</div>
+              <div class="text-purple-400 text-xs mt-0.5">Marcus Lam · Head of Growth, Klook</div>
+            </div>
+          </div>
+          <span class="accordion-icon text-purple-400 text-xl font-light ml-4 shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            A hands-on workshop covering the exact growth frameworks Marcus used to scale Klook's user base across 20+ markets. Topics include viral loops, referral mechanics, A/B testing at scale, and building a growth culture from day one.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="schedule">
+          <div class="flex items-center gap-4">
+            <span class="text-lime-400 font-heading font-bold text-sm w-20 shrink-0">12:30 PM</span>
+            <div>
+              <div class="font-heading font-semibold text-white">Lunch Break &amp; Networking</div>
+              <div class="text-purple-400 text-xs mt-0.5">Catered Lunch · Exhibition Hall</div>
+            </div>
+          </div>
+          <span class="accordion-icon text-purple-400 text-xl font-light ml-4 shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            Enjoy a catered lunch in the Exhibition Hall where sponsor booths and career fair tables will be open. Bring your CV — recruiters from top agencies and brands will be present throughout the break.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="schedule">
+          <div class="flex items-center gap-4">
+            <span class="text-lime-400 font-heading font-bold text-sm w-20 shrink-0">2:00 PM</span>
+            <div>
+              <div class="font-heading font-semibold text-white">Panel: Brand Strategy in the Age of Gen Z</div>
+              <div class="text-purple-400 text-xs mt-0.5">Priya Nair, David Wong, Jessica Yuen</div>
+            </div>
+          </div>
+          <span class="accordion-icon text-purple-400 text-xl font-light ml-4 shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            Three of Hong Kong's most respected marketing leaders debate what it truly means to build a brand that resonates with Gen Z. Topics include authenticity vs. performance, purpose-driven marketing, and the future of influencer culture. Audience Q&A included.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="schedule">
+          <div class="flex items-center gap-4">
+            <span class="text-lime-400 font-heading font-bold text-sm w-20 shrink-0">3:30 PM</span>
+            <div>
+              <div class="font-heading font-semibold text-white">Fireside Chat: From Student to CMO</div>
+              <div class="text-purple-400 text-xs mt-0.5">Jessica Yuen · Founder, BrandLab HK</div>
+            </div>
+          </div>
+          <span class="accordion-icon text-purple-400 text-xl font-light ml-4 shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            An intimate conversation with Jessica Yuen about her journey from HKU marketing student to founding one of Hong Kong's fastest-growing brand consultancies. Candid, honest, and full of practical advice for students ready to take the leap.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 7 -->
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="schedule">
+          <div class="flex items-center gap-4">
+            <span class="text-lime-400 font-heading font-bold text-sm w-20 shrink-0">4:30 PM</span>
+            <div>
+              <div class="font-heading font-semibold text-white">Live Brand Challenge: 60-Minute Sprint</div>
+              <div class="text-purple-400 text-xs mt-0.5">All Attendees · Team Competition</div>
+            </div>
+          </div>
+          <span class="accordion-icon text-purple-400 text-xl font-light ml-4 shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            The highlight of the day. Teams of 5 are given a real brand brief and 60 minutes to develop a campaign concept. Judges include the day's speakers. The winning team takes home HK$5,000 in prizes and a mentorship package.
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 8 -->
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="schedule">
+          <div class="flex items-center gap-4">
+            <span class="text-lime-400 font-heading font-bold text-sm w-20 shrink-0">5:30 PM</span>
+            <div>
+              <div class="font-heading font-semibold text-white">Closing Ceremony &amp; Networking Drinks</div>
+              <div class="text-purple-400 text-xs mt-0.5">All Speakers · Rooftop Terrace</div>
+            </div>
+          </div>
+          <span class="accordion-icon text-purple-400 text-xl font-light ml-4 shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            Wrap up the day with award presentations, closing remarks, and an informal networking drinks session on the rooftop terrace with panoramic views of Victoria Harbour. All speakers will be present for photos and conversation.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TICKET OPTIONS SECTION
+============================================================ -->
+<section id="tickets" class="py-20 md:py-28 bg-[#0f0020]">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14">
+      <span class="inline-block px-3 py-1 rounded-full bg-purple-600/20 border border-purple-600/40 text-purple-400 text-xs font-semibold uppercase tracking-widest mb-4">Tickets</span>
+      <h2 class="font-heading font-black text-4xl sm:text-5xl text-white mb-4">Choose Your <span class="gradient-text">Experience</span></h2>
+      <p class="text-purple-300 max-w-xl mx-auto">Free for students with a valid .edu email. Limited seats available — secure yours now.</p>
+      <!-- Urgency -->
+      <div class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full bg-red-500/15 border border-red-400/40 text-red-300 text-sm font-medium urgency-badge">
+        🔥 Only 47 of 300 seats remaining!
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 items-stretch">
+
+      <!-- Student Ticket -->
+      <div class="ticket-card relative flex flex-col p-7 rounded-3xl bg-white/5 border border-purple-800/40">
+        <div class="mb-5">
+          <div class="inline-block px-3 py-1 rounded-full bg-lime-400/15 border border-lime-400/30 text-lime-400 text-xs font-semibold mb-3">Student Free</div>
+          <div class="font-heading font-black text-5xl text-white mb-1">HK$0</div>
+          <div class="text-purple-400 text-sm">With valid .edu email address</div>
+        </div>
+        <ul class="space-y-2.5 mb-8 flex-1">
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Full day access (9 AM – 6 PM)</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> All keynotes &amp; panels</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Workshop participation</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Catered lunch included</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Live Brand Challenge entry</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Networking drinks</li>
+          <li class="flex items-start gap-2 text-sm text-purple-300"><span class="text-purple-600 mt-0.5">✗</span> Priority seating</li>
+          <li class="flex items-start gap-2 text-sm text-purple-300"><span class="text-purple-600 mt-0.5">✗</span> Speaker meet &amp; greet</li>
+        </ul>
+        <a href="#register" class="block text-center px-6 py-3 rounded-full border border-lime-400/60 text-lime-400 font-heading font-bold hover:bg-lime-400 hover:text-purple-950 transition-all">
+          Register Free →
+        </a>
+      </div>
+
+      <!-- General Admission — FEATURED -->
+      <div class="ticket-card relative flex flex-col p-7 rounded-3xl bg-gradient-to-b from-purple-800/40 to-purple-900/40 border-2 border-purple-500/80 shadow-2xl shadow-purple-900/50">
+        <!-- Popular badge -->
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-lime-400 text-purple-950 text-xs font-heading font-black uppercase tracking-wide shadow-lg">Most Popular</div>
+        <div class="mb-5">
+          <div class="inline-block px-3 py-1 rounded-full bg-purple-600/30 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-3">General Admission</div>
+          <div class="font-heading font-black text-5xl text-white mb-1">HK$150</div>
+          <div class="text-purple-400 text-sm">Open to all attendees</div>
+        </div>
+        <ul class="space-y-2.5 mb-8 flex-1">
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Full day access (9 AM – 6 PM)</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> All keynotes &amp; panels</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Workshop participation</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Catered lunch included</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Live Brand Challenge entry</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Networking drinks</li>
+          <li class="flex items-start gap-2 text-sm text-purple-300"><span class="text-purple-600 mt-0.5">✗</span> Priority seating</li>
+          <li class="flex items-start gap-2 text-sm text-purple-300"><span class="text-purple-600 mt-0.5">✗</span> Speaker meet &amp; greet</li>
+        </ul>
+        <a href="#register" class="block text-center px-6 py-3 rounded-full bg-lime-400 text-purple-950 font-heading font-black hover:bg-lime-300 transition-all shadow-lg shadow-lime-400/20">
+          Get Ticket →
+        </a>
+      </div>
+
+      <!-- VIP Ticket -->
+      <div class="ticket-card relative flex flex-col p-7 rounded-3xl bg-white/5 border border-purple-800/40">
+        <div class="mb-5">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-xs font-semibold mb-3">
+            ⭐ VIP Experience
+          </div>
+          <div class="font-heading font-black text-5xl text-white mb-1">HK$380</div>
+          <div class="text-purple-400 text-sm">Premium summit experience</div>
+        </div>
+        <ul class="space-y-2.5 mb-8 flex-1">
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Full day access (9 AM – 6 PM)</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> All keynotes &amp; panels</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Workshop participation</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Catered lunch included</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Live Brand Challenge entry</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> Networking drinks</li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> <strong class="text-white">Priority front-row seating</strong></li>
+          <li class="flex items-start gap-2 text-sm text-purple-200"><span class="text-lime-400 mt-0.5">✓</span> <strong class="text-white">Exclusive speaker meet &amp; greet</strong></li>
+        </ul>
+        <a href="#register" class="block text-center px-6 py-3 rounded-full border border-yellow-400/50 text-yellow-400 font-heading font-bold hover:bg-yellow-400 hover:text-purple-950 transition-all">
+          Go VIP →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SPONSORS SECTION
+============================================================ -->
+<section id="sponsors" class="py-20 md:py-24 bg-gradient-to-b from-[#0f0020] to-purple-950/40">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-12">
+      <span class="inline-block px-3 py-1 rounded-full bg-purple-600/20 border border-purple-600/40 text-purple-400 text-xs font-semibold uppercase tracking-widest mb-4">Our Sponsors</span>
+      <h2 class="font-heading font-black text-4xl sm:text-5xl text-white mb-4">Backed by <span class="gradient-text">Industry Leaders</span></h2>
+      <p class="text-purple-300 max-w-xl mx-auto">MarketMinds 2026 is made possible by the generous support of Hong Kong's most forward-thinking brands.</p>
+    </div>
+
+    <!-- Platinum -->
+    <div class="mb-10">
+      <p class="text-center text-xs font-semibold uppercase tracking-widest text-purple-500 mb-6">Platinum Sponsors</p>
+      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+        <div class="flex items-center justify-center h-12 px-6 rounded-xl bg-white/5 border border-purple-800/30">
+          <span class="font-heading font-black text-xl text-white/70 tracking-tight">HSBC</span>
+        </div>
+        <div class="flex items-center justify-center h-12 px-6 rounded-xl bg-white/5 border border-purple-800/30">
+          <span class="font-heading font-black text-xl text-white/70 tracking-tight">Cathay Pacific</span>
+        </div>
+        <div class="flex items-center justify-center h-12 px-6 rounded-xl bg-white/5 border border-purple-800/30">
+          <span class="font-heading font-black text-xl text-white/70 tracking-tight">Ogilvy</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gold -->
+    <div class="mb-10">
+      <p class="text-center text-xs font-semibold uppercase tracking-widest text-yellow-600/70 mb-6">Gold Sponsors</p>
+      <div class="flex flex-wrap justify-center items-center gap-6 md:gap-12">
+        <div class="flex items-center justify-center h-10 px-5 rounded-xl bg-white/5 border border-purple-800/20">
+          <span class="font-heading font-bold text-base text-white/55 tracking-tight">Klook</span>
+        </div>
+        <div class="flex items-center justify-center h-10 px-5 rounded-xl bg-white/5 border border-purple-800/20">
+          <span class="font-heading font-bold text-base text-white/55 tracking-tight">L'Oréal</span>
+        </div>
+        <div class="flex items-center justify-center h-10 px-5 rounded-xl bg-white/5 border border-purple-800/20">
+          <span class="font-heading font-bold text-base text-white/55 tracking-tight">WPP</span>
+        </div>
+        <div class="flex items-center justify-center h-10 px-5 rounded-xl bg-white/5 border border-purple-800/20">
+          <span class="font-heading font-bold text-base text-white/55 tracking-tight">Dentsu</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Silver -->
+    <div>
+      <p class="text-center text-xs font-semibold uppercase tracking-widest text-gray-500 mb-6">Silver Sponsors</p>
+      <div class="flex flex-wrap justify-center items-center gap-5 md:gap-10">
+        <div class="flex items-center justify-center h-8 px-4 rounded-lg bg-white/5 border border-purple-800/20">
+          <span class="font-heading font-semibold text-sm text-white/40 tracking-tight">HKU</span>
+        </div>
+        <div class="flex items-center justify-center h-8 px-4 rounded-lg bg-white/5 border border-purple-800/20">
+          <span class="font-heading font-semibold text-sm text-white/40 tracking-tight">CUHK</span>
+        </div>
+        <div class="flex items-center justify-center h-8 px-4 rounded-lg bg-white/5 border border-purple-800/20">
+          <span class="font-heading font-semibold text-sm text-white/40 tracking-tight">PolyU</span>
+        </div>
+        <div class="flex items-center justify-center h-8 px-4 rounded-lg bg-white/5 border border-purple-800/20">
+          <span class="font-heading font-semibold text-sm text-white/40 tracking-tight">HKUST</span>
+        </div>
+        <div class="flex items-center justify-center h-8 px-4 rounded-lg bg-white/5 border border-purple-800/20">
+          <span class="font-heading font-semibold text-sm text-white/40 tracking-tight">BrandLab HK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sponsor CTA -->
+    <div class="mt-12 text-center">
+      <p class="text-purple-400 text-sm mb-3">Interested in sponsoring MarketMinds 2026?</p>
+      <a href="mailto:sponsors@marketminds.hk" class="inline-flex items-center gap-2 text-lime-400 font-medium text-sm hover:text-lime-300 transition-colors">
+        Contact our partnerships team →
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FAQ SECTION (ACCORDION)
+============================================================ -->
+<section id="faq" class="py-20 md:py-28 bg-[#0f0020]">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-14">
+      <span class="inline-block px-3 py-1 rounded-full bg-lime-400/10 border border-lime-400/30 text-lime-400 text-xs font-semibold uppercase tracking-widest mb-4">FAQ</span>
+      <h2 class="font-heading font-black text-4xl sm:text-5xl text-white mb-4">Got <span class="gradient-text">Questions?</span></h2>
+      <p class="text-purple-300">Everything you need to know about MarketMinds 2026.</p>
+    </div>
+
+    <div id="faq-accordion" class="space-y-3">
+
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="faq">
+          <span class="font-heading font-semibold text-white pr-4">Who can attend MarketMinds 2026?</span>
+          <span class="accordion-icon text-purple-400 text-xl font-light shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            MarketMinds 2026 is open to everyone! University students with a valid .edu email address can attend for free. All other attendees (recent graduates, young professionals, faculty) can purchase a General Admission or VIP ticket.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="faq">
+          <span class="font-heading font-semibold text-white pr-4">How do I claim my free student ticket?</span>
+          <span class="accordion-icon text-purple-400 text-xl font-light shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            Simply register using your university .edu email address. You will receive a confirmation email with your free ticket within 24 hours. Please bring a valid student ID to the event for verification at the registration desk.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="faq">
+          <span class="font-heading font-semibold text-white pr-4">Where exactly is the event held?</span>
+          <span class="accordion-icon text-purple-400 text-xl font-light shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            MarketMinds 2026 will be held at the Hong Kong Convention and Exhibition Centre (HKCEC), 1 Expo Drive, Wan Chai, Hong Kong. The venue is easily accessible via MTR (Wan Chai Station, Exit A1) and multiple bus routes.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="faq">
+          <span class="font-heading font-semibold text-white pr-4">Is lunch provided?</span>
+          <span class="accordion-icon text-purple-400 text-xl font-light shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            Yes! A catered lunch is included with all ticket types. We will have vegetarian, vegan, and halal options available. Please indicate any dietary requirements during registration so we can accommodate you.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="faq">
+          <span class="font-heading font-semibold text-white pr-4">Can I get a refund if I can't attend?</span>
+          <span class="accordion-icon text-purple-400 text-xl font-light shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            Paid tickets (General Admission and VIP) are fully refundable up to 14 days before the event (1 November 2026). After that date, tickets are non-refundable but are transferable — you can transfer your ticket to another person by emailing us at tickets@marketminds.hk.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="faq">
+          <span class="font-heading font-semibold text-white pr-4">Will sessions be recorded or streamed?</span>
+          <span class="accordion-icon text-purple-400 text-xl font-light shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            Selected keynote sessions will be recorded and made available to registered attendees after the event. Workshops and the Live Brand Challenge will not be recorded to preserve the in-person experience. There will be no live stream.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="faq">
+          <span class="font-heading font-semibold text-white pr-4">How do I participate in the Live Brand Challenge?</span>
+          <span class="accordion-icon text-purple-400 text-xl font-light shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            All registered attendees are automatically eligible to participate in the Live Brand Challenge. Teams of 5 will be randomly assigned on the day. If you have a preferred team, you can pre-register your group of 5 by emailing challenge@marketminds.hk before 8 November 2026.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item rounded-2xl border border-purple-800/40 bg-white/5 overflow-hidden">
+        <button class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors" data-group="faq">
+          <span class="font-heading font-semibold text-white pr-4">What should I bring on the day?</span>
+          <span class="accordion-icon text-purple-400 text-xl font-light shrink-0">+</span>
+        </button>
+        <div class="accordion-content">
+          <div class="px-6 pb-5 pt-1 text-purple-300 text-sm leading-relaxed border-t border-purple-800/30">
+            Bring your confirmation email (digital or printed), a valid student ID (if claiming a free student ticket), a laptop or tablet for the workshops, business cards or a LinkedIn QR code for networking, and your enthusiasm! Dress code is smart casual.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     REGISTER CTA SECTION
+============================================================ -->
+<section id="register" class="py-20 md:py-28 relative overflow-hidden">
+
+  <!-- Background -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1920&q=80&auto=format&fit=crop"
+      alt="Students at a marketing event"
+      class="w-full h-full object-cover object-center opacity-20"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-purple-950/95 via-purple-900/90 to-[#0f0020]/98"></div>
+  </div>
+
+  <!-- Decorative elements -->
+  <div class="absolute top-0 left-0 w-64 h-64 bg-lime-400/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center">
+
+    <span class="inline-block px-3 py-1 rounded-full bg-lime-400/10 border border-lime-400/30 text-lime-400 text-xs font-semibold uppercase tracking-widest mb-6">Register Now</span>
+
+    <h2 class="font-heading font-black text-4xl sm:text-5xl md:text-6xl text-white mb-5 leading-tight">
+      Your Marketing Career<br/><span class="gradient-text">Starts Here.</span>
+    </h2>
+
+    <p class="text-purple-200 text-lg mb-4 max-w-xl mx-auto">
+      Join 300 of Hong Kong's sharpest marketing students for a day that will change how you think about your career.
+    </p>
+
+    <!-- Final urgency -->
+    <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-red-500/20 border border-red-400/50 text-red-300 font-heading font-bold text-sm mb-8 urgency-badge">
+      🔥 Only 47 seats left — Don't miss out!
+    </div>
+
+    <!-- Registration form -->
+    <div class="bg-white/5 backdrop-blur border border-purple-700/40 rounded-3xl p-6 sm:p-8 text-left">
+      <h3 class="font-heading font-bold text-white text-xl mb-6 text-center">Reserve Your Seat</h3>
+
+      <form id="register-form" class="space-y-4" onsubmit="handleRegister(event)">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-purple-300 mb-1.5 uppercase tracking-wide">First Name</label>
+            <input type="text" placeholder="Jane" required
+              class="w-full px-4 py-3 rounded-xl bg-white/10 border border-purple-700/50 text-white placeholder-purple-500 focus:outline-none focus:border-lime-400/70 focus:ring-1 focus:ring-lime-400/30 transition-colors text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-purple-300 mb-1.5 uppercase tracking-wide">Last Name</label>
+            <input type="text" placeholder="Smith" required
+              class="w-full px-4 py-3 rounded-xl bg-white/10 border border-purple-700/50 text-white placeholder-purple-500 focus:outline-none focus:border-lime-400/70 focus:ring-1 focus:ring-lime-400/30 transition-colors text-sm" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-purple-300 mb-1.5 uppercase tracking-wide">Email Address</label>
+          <input type="email" placeholder="jane@university.edu.hk" required
+            class="w-full px-4 py-3 rounded-xl bg-white/10 border border-purple-700/50 text-white placeholder-purple-500 focus:outline-none focus:border-lime-400/70 focus:ring-1 focus:ring-lime-400/30 transition-colors text-sm" />
+          <p class="text-xs text-purple-500 mt-1">Use your .edu email for a free student ticket</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-purple-300 mb-1.5 uppercase tracking-wide">University / Organisation</label>
+          <input type="text" placeholder="Hong Kong University" required
+            class="w-full px-4 py-3 rounded-xl bg-white/10 border border-purple-700/50 text-white placeholder-purple-500 focus:outline-none focus:border-lime-400/70 focus:ring-1 focus:ring-lime-400/30 transition-colors text-sm" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-purple-300 mb-1.5 uppercase tracking-wide">Ticket Type</label>
+          <select required
+            class="w-full px-4 py-3 rounded-xl bg-purple-950 border border-purple-700/50 text-white focus:outline-none focus:border-lime-400/70 focus:ring-1 focus:ring-lime-400/30 transition-colors text-sm">
+            <option value="" disabled selected>Select a ticket type</option>
+            <option value="student">Student Free (requires .edu email)</option>
+            <option value="general">General Admission — HK$150</option>
+            <option value="vip">VIP Experience — HK$380</option>
+          </select>
+        </div>
+
+        <button type="submit"
+          class="w-full py-4 rounded-full bg-lime-400 text-purple-950 font-heading font-black text-lg hover:bg-lime-300 transition-all shadow-xl hover:shadow-lime-400/30 mt-2">
+          Secure My Seat →
+        </button>
+      </form>
+
+      <!-- Success message (hidden) -->
+      <div id="register-success" class="hidden text-center py-8">
+        <div class="text-5xl mb-4">🎉</div>
+        <h4 class="font-heading font-black text-white text-2xl mb-2">You're Registered!</h4>
+        <p class="text-purple-300">Check your email for your confirmation and ticket details. See you on 15 November 2026!</p>
+      </div>
+    </div>
+
+    <p class="text-purple-500 text-xs mt-4">By registering, you agree to our <a href="#" class="underline hover:text-purple-300">Terms of Service</a> and <a href="#" class="underline hover:text-purple-300">Privacy Policy</a>.</p>
+  </div>
+</section>
+
+
+<!-- ============================================================
      FOOTER
-═══════════════════════════════════════════════════════════════ -->
-<footer class="bg-espresso text-white">
+============================================================ -->
+<footer class="bg-purple-950/80 border-t border-purple-800/40 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-  <!-- Main footer content -->
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
 
       <!-- Brand -->
-      <div>
-        <a href="#home" class="font-heading text-3xl font-bold text-white flex items-center gap-2 mb-4">
-          <span class="text-tan">✦</span> Brew &amp; Co.
-        </a>
-        <p class="text-white/60 text-sm leading-relaxed max-w-xs">
-          Specialty coffee crafted with passion on Hollywood Road, Central, Hong Kong. Your daily ritual, elevated.
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-lime-400 to-purple-600 flex items-center justify-center text-purple-950 font-heading font-black text-sm">MM</span>
+          <span class="font-heading font-bold text-white text-lg">Market<span class="text-lime-400">Minds</span> <span class="text-purple-500">2026</span></span>
+        </div>
+        <p class="text-purple-400 text-sm leading-relaxed max-w-xs">
+          Hong Kong's premier student marketing summit. Inspiring the next generation of marketing leaders since 2019.
         </p>
+        <!-- Social links -->
+        <div class="flex gap-3 mt-5">
+          <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/5 border border-purple-800/40 flex items-center justify-center text-purple-400 hover:text-lime-400 hover:border-lime-400/40 transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-full bg-white/5 border border-purple-800/40 flex items-center justify-center text-purple-400 hover:text-lime-400 hover:border-lime-400/40 transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter/X" class="w-9 h-9 rounded-full bg-white/5 border border-purple-800/40 flex items-center justify-center text-purple-400 hover:text-lime-400 hover:border-lime-400/40 transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
       </div>
 
-      <!-- Quick links -->
+      <!-- Quick Links -->
       <div>
-        <h4 class="font-heading text-tan tracking-widest uppercase text-xs mb-5">Navigate</h4>
-        <ul class="space-y-2 text-sm text-white/60">
-          <li><a href="#home"        class="hover:text-tan transition">Home</a></li>
-          <li><a href="#about"       class="hover:text-tan transition">About Us</a></li>
-          <li><a href="#menu"        class="hover:text-tan transition">Menu</a></li>
-          <li><a href="#gallery"     class="hover:text-tan transition">Gallery</a></li>
-          <li><a href="#testimonials"class="hover:text-tan transition">Reviews</a></li>
-          <li><a href="#location"    class="hover:text-tan transition">Location &amp; Hours</a></li>
+        <h4 class="font-heading font-bold text-white text-sm uppercase tracking-widest mb-4">Quick Links</h4>
+        <ul class="space-y-2">
+          <li><a href="#about"    class="text-purple-400 text-sm hover:text-lime-400 transition-colors">About</a></li>
+          <li><a href="#speakers" class="text-purple-400 text-sm hover:text-lime-400 transition-colors">Speakers</a></li>
+          <li><a href="#schedule" class="text-purple-400 text-sm hover:text-lime-400 transition-colors">Schedule</a></li>
+          <li><a href="#tickets"  class="text-purple-400 text-sm hover:text-lime-400 transition-colors">Tickets</a></li>
+          <li><a href="#faq"      class="text-purple-400 text-sm hover:text-lime-400 transition-colors">FAQ</a></li>
+          <li><a href="#register" class="text-purple-400 text-sm hover:text-lime-400 transition-colors">Register</a></li>
         </ul>
       </div>
 
-      <!-- Social -->
+      <!-- Contact -->
       <div>
-        <h4 class="font-heading text-tan tracking-widest uppercase text-xs mb-5">Follow Along</h4>
-        <div class="flex gap-4 mb-6">
-          <a href="https://www.instagram.com/" target="_blank" rel="noopener"
-             aria-label="Instagram"
-             class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:border-tan hover:bg-tan/10 transition">
-            <i class="fab fa-instagram text-lg"></i>
-          </a>
-          <a href="https://www.facebook.com/" target="_blank" rel="noopener"
-             aria-label="Facebook"
-             class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:border-tan hover:bg-tan/10 transition">
-            <i class="fab fa-facebook-f text-lg"></i>
-          </a>
-          <a href="https://wa.me/85298765432" target="_blank" rel="noopener"
-             aria-label="WhatsApp"
-             class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-white hover:border-tan hover:bg-tan/10 transition">
-            <i class="fab fa-whatsapp text-lg"></i>
-          </a>
-        </div>
-        <p class="text-white/40 text-xs">@brewandco.hk</p>
+        <h4 class="font-heading font-bold text-white text-sm uppercase tracking-widest mb-4">Contact</h4>
+        <ul class="space-y-2">
+          <li><a href="mailto:hello@marketminds.hk" class="text-purple-400 text-sm hover:text-lime-400 transition-colors">hello@marketminds.hk</a></li>
+          <li><a href="mailto:sponsors@marketminds.hk" class="text-purple-400 text-sm hover:text-lime-400 transition-colors">sponsors@marketminds.hk</a></li>
+          <li><a href="mailto:tickets@marketminds.hk" class="text-purple-400 text-sm hover:text-lime-400 transition-colors">tickets@marketminds.hk</a></li>
+          <li class="pt-2 text-purple-500 text-xs">HKCEC, 1 Expo Drive<br/>Wan Chai, Hong Kong</li>
+        </ul>
       </div>
-
     </div>
-  </div>
 
-  <!-- Bottom bar -->
-  <div class="border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/40 text-xs">
-      <p>&copy; 2025 Brew &amp; Co. All rights reserved.</p>
-      <p>Crafted with <span class="text-tan">♥</span> in Hong Kong</p>
+    <!-- Bottom bar -->
+    <div class="border-t border-purple-800/40 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-purple-500 text-xs">© 2026 MarketMinds. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="#" class="text-purple-500 text-xs hover:text-purple-300 transition-colors">Privacy Policy</a>
+        <a href="#" class="text-purple-500 text-xs hover:text-purple-300 transition-colors">Terms of Service</a>
+        <a href="#" class="text-purple-500 text-xs hover:text-purple-300 transition-colors">Cookie Policy</a>
+      </div>
     </div>
   </div>
 </footer>
 
 
-<!-- ═══════════════════════════════════════════════════════════════
+<!-- ============================================================
      JAVASCRIPT
-═══════════════════════════════════════════════════════════════ -->
+============================================================ -->
 <script>
-  /* ── 1. Sticky navbar: transparent → white on scroll ─────────── */
-  const navbar   = document.getElementById('navbar');
-  const navLinks = navbar.querySelectorAll('.nav-link');
-  const navLogo  = navbar.querySelector('.nav-logo');
+  // ─── Countdown Timer ────────────────────────────────────────
+  (function initCountdown() {
+    const eventDate = new Date('2026-11-15T09:00:00+08:00');
 
-  function handleNavScroll() {
-    const scrolled = window.scrollY > 60;
-    navbar.classList.toggle('scrolled', scrolled);
+    function pad(n) { return String(n).padStart(2, '0'); }
 
-    // Switch link colours
-    navLinks.forEach(link => {
-      link.classList.toggle('text-white/90', !scrolled);
-      link.classList.toggle('text-espresso', scrolled);
+    function tick() {
+      const now  = new Date();
+      const diff = eventDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent  = '00';
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-mins').textContent  = '00';
+        document.getElementById('cd-secs').textContent  = '00';
+        return;
+      }
+
+      const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent  = pad(days);
+      document.getElementById('cd-hours').textContent = pad(hours);
+      document.getElementById('cd-mins').textContent  = pad(mins);
+      document.getElementById('cd-secs').textContent  = pad(secs);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+
+  // ─── Accordion ──────────────────────────────────────────────
+  document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const item    = btn.closest('.accordion-item');
+      const content = item.querySelector('.accordion-content');
+      const icon    = btn.querySelector('.accordion-icon');
+      const group   = btn.dataset.group;
+      const isOpen  = content.classList.contains('open');
+
+      // Close all in the same group
+      document.querySelectorAll('[data-group="' + group + '"]').forEach(function(otherBtn) {
+        const otherItem    = otherBtn.closest('.accordion-item');
+        const otherContent = otherItem.querySelector('.accordion-content');
+        const otherIcon    = otherBtn.querySelector('.accordion-icon');
+        otherContent.classList.remove('open');
+        otherIcon.classList.remove('open');
+      });
+
+      // Toggle current
+      if (!isOpen) {
+        content.classList.add('open');
+        icon.classList.add('open');
+      }
     });
+  });
+
+
+  // ─── Sticky Navbar ──────────────────────────────────────────
+  (function initNavbar() {
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }, { passive: true });
+  })();
+
+
+  // ─── Active Nav Link Highlighting ───────────────────────────
+  (function initActiveLinks() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(link) {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + entry.target.id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(function(section) { observer.observe(section); });
+  })();
+
+
+  // ─── Mobile Menu Toggle ─────────────────────────────────────
+  (function initMobileMenu() {
+    const btn  = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    btn.addEventListener('click', function() {
+      menu.classList.toggle('hidden');
+    });
+
+    // Close on link click
+    document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        menu.classList.add('hidden');
+      });
+    });
+    document.querySelector('#mobile-menu a[href="#register"]').addEventListener('click', function() {
+      menu.classList.add('hidden');
+    });
+  })();
+
+
+  // ─── Register Form ──────────────────────────────────────────
+  function handleRegister(e) {
+    e.preventDefault();
+    document.getElementById('register-form').classList.add('hidden');
+    document.getElementById('register-success').classList.remove('hidden');
   }
-
-  window.addEventListener('scroll', handleNavScroll, { passive: true });
-  handleNavScroll(); // run once on load
-
-
-  /* ── 2. Hamburger menu toggle ─────────────────────────────────── */
-  const hamburger  = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const hamIcon    = document.getElementById('ham-icon');
-
-  hamburger.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('open');
-    hamIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-  });
-
-  // Close mobile menu when any link is clicked
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      hamIcon.className = 'fas fa-bars';
-    });
-  });
-
-
-  /* ── 3. Smooth scroll (polyfill for Safari) ───────────────────── */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const target = document.querySelector(this.getAttribute('href'));
-      if (!target) return;
-      e.preventDefault();
-      const offset = navbar.offsetHeight;
-      const top    = target.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
-    });
-  });
-
-
-  /* ── 4. Scroll-reveal (IntersectionObserver) ─────────────────── */
-  const revealEls = document.querySelectorAll('.reveal');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // animate once
-      }
-    });
-  }, { threshold: 0.12 });
-
-  revealEls.forEach(el => observer.observe(el));
-
-
-  /* ── 5. Active nav link highlight on scroll ───────────────────── */
-  const sections = document.querySelectorAll('section[id], header[id]');
-  const desktopLinks = document.querySelectorAll('nav a[href^="#"]');
-
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute('id');
-        desktopLinks.forEach(link => {
-          const match = link.getAttribute('href') === `#${id}`;
-          link.classList.toggle('text-tan', match);
-          link.classList.toggle('font-semibold', match);
-        });
-      }
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-
-  sections.forEach(section => sectionObserver.observe(section));
 </script>
 
 </body>
